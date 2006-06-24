@@ -4,7 +4,7 @@
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>0.9.1</version>
+  <version>0.9.2-SNAPSHOT</version>
   <url>http://www.ailis.de/~k/software/projects/clamp/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
@@ -14,9 +14,9 @@
   </organization>
   
   <scm>
-    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/tags/pherialize-0.9.1?root=svn</url>
-    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/tags/pherialize-0.9.1</connection>
-    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags/pherialize-0.9.1</developerConnection>
+    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
+    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection>
   </scm>
   
   <build>
