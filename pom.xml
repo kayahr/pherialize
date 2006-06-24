@@ -12,7 +12,7 @@
   <scm>
     <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/tags/pherialize-0.9.0?root=svn</url>
     <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/tags/pherialize-0.9.0</connection>
-    <developerConnection>scm:svn:svn+ssh://ailis.de/var/lib/svn/java/pherialize/tags/pherialize-0.9.0</developerConnection>
+    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags/pherialize-0.9.0</developerConnection>
   </scm>
   
   <build>
