@@ -8,14 +8,15 @@
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>1.0.0</version>
+  <version>SNAPSHOT</version>
   <url>http://www.ailis.de/~k/software/projects/clamp/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
   
   <scm>
-    <url>http://www.ailis.de/cgi-bin/viewcvs.cgi/pherialize/</url>
-    <connection>scm:cvs:pserver:anoncvs@ailis.de:/var/cvs/pherialize</connection>
+    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
+    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
+    <!-- <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection>-->
   </scm>
   
   <build>
@@ -24,7 +25,7 @@
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <configuration>
-            <tagBase>https://svn.apache.org/repos/asf/maven/components/tags</tagBase>
+            <tagBase>svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags</tagBase>
           </configuration>
         </plugin>
         <plugin>
@@ -38,13 +39,39 @@
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>http://www.ibiblio.org/pub/Linux/LICENSES/mit.license</url>
+      <url>license.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
   
   <reporting>
     <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <!-- <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changelog-maven-plugin</artifactId>
+      </plugin> -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <links>
+            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
+            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+            <link>http://www.junit.org/junit/javadoc/</link>
+          </links>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -62,13 +89,6 @@
            </reportSet>
         </reportSets>
       </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>   
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
       </plugin>
@@ -92,17 +112,17 @@
             <minimumTokens>100</minimumTokens>
          </configuration>
       </plugin>
-<!--       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
-      </plugin>-->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <!-- <report>jira-report</report> -->
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>
@@ -139,11 +159,6 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
     </dependency>
   </dependencies>
 </project>

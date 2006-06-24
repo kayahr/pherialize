@@ -9,7 +9,12 @@
     <links>
       <item name="PHP" href="http://www.php.net/" />
     </links>
-
+    
+    <menu name="Pherialize">
+      <item name="About" href="index.html"/>
+      <item name="Download" href="download.html"/>
+    </menu>
+    
     ${reports}
     
   </body>

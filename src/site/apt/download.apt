@@ -1,0 +1,9 @@
+Download
+
+  Pherialize is a small library allowing serializing Java objects with
+  {{{http://www.php.net/}PHP}} serializing format and unserializing from this 
+  format back to Java objects.
+  
+  So with Pherialize you can serialize PHP objects and unserialize them into
+  Java objects and vice versa.
+  
