@@ -1,18 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                               http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.ailis.pherialize</groupId>
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>0.9.0</version>
+  <version>0.9.1-SNAPSHOT</version>
   <url>http://www.ailis.de/~k/software/projects/clamp/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
   
   <scm>
-    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/tags/pherialize-0.9.0?root=svn</url>
-    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/tags/pherialize-0.9.0</connection>
-    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags/pherialize-0.9.0</developerConnection>
+    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
+    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection>
   </scm>
   
   <build>
