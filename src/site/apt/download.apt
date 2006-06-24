@@ -1,9 +1,14 @@
 Download
 
-  Pherialize is a small library allowing serializing Java objects with
-  {{{http://www.php.net/}PHP}} serializing format and unserializing from this 
-  format back to Java objects.
+* Binaries
+ 
+  * {{{download/0.9.0/pherialize-0.9.0.jar}pherialize-0.9.0.jar}}
   
-  So with Pherialize you can serialize PHP objects and unserialize them into
-  Java objects and vice versa.
   
+* Sources
+
+  Source JARs contain only the Java source files. If you want the full
+  source package for compiling Pherialize yourself then use the 
+  {{{source-repository.html}source repository}} instead.
+  
+  * {{{download/0.9.0/pherialize-0.9.0-sources.jar}pherialize-0.9.0-sources.jar}}

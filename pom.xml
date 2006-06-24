@@ -8,6 +8,10 @@
   <url>http://www.ailis.de/~k/software/projects/clamp/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
+  <organization>
+    <name>Klaus Reimer</name>
+    <url>http://www.ailis.de/~k/</url>
+  </organization>
   
   <scm>
     <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
@@ -20,7 +24,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
-      <!--     <configuration>
+          <!-- <configuration>
             <tagBase>svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags</tagBase>
           </configuration>-->
         </plugin>
@@ -42,9 +46,9 @@
   
   <reporting>
     <plugins>
-      <plugin>
+      <!-- <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
+      </plugin> -->
       <!-- <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
