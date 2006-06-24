@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+  <bannerLeft>
+    <name>Pherialize</name>
+    <src>images/pherialize.png</src>
+    <href>http://www.ailis.de/~k/software/projects/pherialize/</href>
+  </bannerLeft>
+  <body>
+    <links>
+      <item name="PHP" href="http://www.php.net/" />
+    </links>
+
+    ${reports}
+    
+  </body>
+</project>
