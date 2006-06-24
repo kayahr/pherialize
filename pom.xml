@@ -8,7 +8,7 @@
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>0.9.0SNAPSHOT</version>
+  <version>0.9.0-SNAPSHOT</version>
   <url>http://www.ailis.de/~k/software/projects/clamp/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
