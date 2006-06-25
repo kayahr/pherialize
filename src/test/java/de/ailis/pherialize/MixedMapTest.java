@@ -37,7 +37,7 @@ import junit.framework.TestSuite;
  * @version $Revision$
  */
 
-public class MixedHashMapTest extends TestCase
+public class MixedMapTest extends TestCase
 {
     /** The test map */
     private Map map;
@@ -49,7 +49,7 @@ public class MixedHashMapTest extends TestCase
     
     public void setUp()
     {
-        this.map = new MixedHashMap();
+        this.map = new MixedArray();
         this.map.put("1", "value 1");
         this.map.put(new Mixed("2"), "value 2");
         this.map.put("3", new Mixed("value 3"));
@@ -65,7 +65,7 @@ public class MixedHashMapTest extends TestCase
 
     public static Test suite()
     {
-        return new TestSuite(MixedHashMapTest.class);
+        return new TestSuite(MixedMapTest.class);
     }
 
 

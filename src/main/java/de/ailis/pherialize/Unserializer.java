@@ -25,13 +25,12 @@ package de.ailis.pherialize;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import de.ailis.pherialize.exceptions.UnserializeException;
 
 
 /**
- * Unserializers a PHP serializer format string into a Java object
+ * Unserializes a PHP serialize format string into a Java object.
  * 
  * @author Klaus Reimer (k@ailis.de)
  * @version $Revision$
@@ -122,8 +121,7 @@ public class Unserializer
                 break;
 
             case 'a':
-                result = unserializeArray();
-                break;
+                return unserializeArray();
             
             case 'R':
                 result = unserializeReference();
@@ -206,7 +204,7 @@ public class Unserializer
         pos = this.data.indexOf(';', this.pos + 2);
         index = Integer.parseInt(this.data.substring(this.pos + 2, pos));
         this.pos = pos + 1;
-        return (Mixed) this.history.get(index);
+        return (Mixed) this.history.get(index - 1);
     }
     
     
@@ -249,47 +247,27 @@ public class Unserializer
 
     private Mixed unserializeArray()
     {
-        Map map;
-        List list;
+        Mixed result;
+        MixedArray array;
         int pos;
         int max;
         int i;
         Object key, value;
-        boolean isList;
         
         pos = this.data.indexOf(':', this.pos + 2);
         max = Integer.parseInt(this.data.substring(this.pos + 2, pos));
         this.pos = pos + 2;
-        map = new MixedHashMap(max);
+        array = new MixedArray(max);
+        result = new Mixed(array);
+        this.history.add(result);
         for (i = 0; i < max; i++)
         {
             key = unserializeObject();
+            this.history.remove(this.history.size() - 1);
             value = unserializeObject();
-            map.put(key, value);
+            array.put(key, value);
         }
         this.pos++;
-        
-        // Check if map is more like a list and return ArrayList then
-        list = new ArrayList();
-        isList = true;
-        for (i = 0; i < max; i++)
-        {
-            key = Integer.valueOf(i);
-            if (!map.containsKey(key))
-            {
-                isList = false;
-                break;
-            }
-            value = map.get(Integer.valueOf(i));
-            list.add(value);
-        }
-        if (isList)
-        {
-            return new Mixed(list);
-        }
-        else
-        {
-            return new Mixed(map);
-        }
+        return result;
     }
 }

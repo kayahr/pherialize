@@ -74,8 +74,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertTrue(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
         assertEquals('T', mixed.toChar());
@@ -85,8 +84,7 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
         assertEquals("Test", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
 
 
@@ -110,8 +108,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(1, mixed.toByte());
         assertEquals('t', mixed.toChar());
@@ -121,8 +118,7 @@ public class MixedTest extends TestCase
         assertEquals(1, mixed.toLong());
         assertEquals(1, mixed.toShort());
         assertEquals("true", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -146,8 +142,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(false, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
         assertEquals('f', mixed.toChar());
@@ -157,8 +152,7 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
         assertEquals("false", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -182,8 +176,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
         assertEquals('a', mixed.toChar());
@@ -193,8 +186,7 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
         assertEquals("a", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -218,8 +210,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(5, mixed.toByte());
         assertEquals('5', mixed.toChar());
@@ -229,8 +220,7 @@ public class MixedTest extends TestCase
         assertEquals(5, mixed.toLong());
         assertEquals(5, mixed.toShort());
         assertEquals("5", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -254,8 +244,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(127, mixed.toByte());
         assertEquals('1', mixed.toChar());
@@ -265,8 +254,7 @@ public class MixedTest extends TestCase
         assertEquals(127, mixed.toLong());
         assertEquals(127, mixed.toShort());
         assertEquals("127", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -290,8 +278,7 @@ public class MixedTest extends TestCase
         assertTrue(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(-1, mixed.toByte());
         assertEquals('3', mixed.toChar());
@@ -301,8 +288,7 @@ public class MixedTest extends TestCase
         assertEquals(32767, mixed.toLong());
         assertEquals(32767, mixed.toShort());
         assertEquals("32767", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -326,8 +312,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(-1, mixed.toByte());
         assertEquals('2', mixed.toChar());
@@ -337,8 +322,7 @@ public class MixedTest extends TestCase
         assertEquals(2147483647, mixed.toLong());
         assertEquals(-1, mixed.toShort());
         assertEquals("2147483647", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -362,8 +346,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(-1, mixed.toByte());
         assertEquals('9', mixed.toChar());
@@ -373,8 +356,7 @@ public class MixedTest extends TestCase
         assertEquals(9223372036854775807L, mixed.toLong());
         assertEquals(-1, mixed.toShort());
         assertEquals("9223372036854775807", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -398,8 +380,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(12, mixed.toByte());
         assertEquals('1', mixed.toChar());
@@ -409,8 +390,7 @@ public class MixedTest extends TestCase
         assertEquals(12, mixed.toLong());
         assertEquals(12, mixed.toShort());
         assertEquals("12.34", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -434,8 +414,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertTrue(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertFalse(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(12, mixed.toByte());
         assertEquals('1', mixed.toChar());
@@ -445,8 +424,7 @@ public class MixedTest extends TestCase
         assertEquals(12, mixed.toLong());
         assertEquals(12, mixed.toShort());
         assertEquals("12.34", mixed.toString());
-        assertNull(mixed.toList());
-        assertNull(mixed.toMap());
+        assertNull(mixed.toArray());
     }
     
     
@@ -454,11 +432,11 @@ public class MixedTest extends TestCase
      * Tests a list as a mixed value.
      */
 
-    public void testList()
+    public void testArray()
     {
         Mixed mixed;        
         List list;
-        Map map;
+        MixedArray map;
         
         list = new ArrayList();
         list.add(new Mixed(1));
@@ -466,7 +444,7 @@ public class MixedTest extends TestCase
         list.add(new Mixed(Boolean.TRUE));
                
         mixed = new Mixed(list);
-        assertEquals(Mixed.TYPE_LIST, mixed.getType());
+        assertEquals(Mixed.TYPE_ARRAY, mixed.getType());
         assertFalse(mixed.isBoolean());
         assertFalse(mixed.isByte());
         assertFalse(mixed.isChar());
@@ -477,19 +455,17 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertFalse(mixed.isMap());
-        assertTrue(mixed.isList());
+        assertTrue(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
-        assertEquals('[', mixed.toChar());
+        assertEquals('{', mixed.toChar());
         assertEquals(0, mixed.toDouble(), 0);
         assertEquals(0, mixed.toFloat(), 0);
         assertEquals(0, mixed.toInt());
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
-        assertEquals("[1, Test, true]", mixed.toString());
-        assertEquals(list, mixed.toList());
-        map = mixed.toMap();
+        assertEquals("{2=true, 0=1, 1=Test}", mixed.toString());
+        map = mixed.toArray();
         assertEquals(3, map.size());
         assertEquals(1, ((Mixed) map.get(Integer.valueOf(0))).toInt());
         assertEquals("Test", ((Mixed) map.get(Integer.valueOf(1))).toString());
@@ -507,7 +483,7 @@ public class MixedTest extends TestCase
     public void testMap()
     {
         Mixed mixed;        
-        List list;
+        MixedArray list;
         Map map;
         
         map = new HashMap();
@@ -516,7 +492,7 @@ public class MixedTest extends TestCase
         map.put(new Mixed("key3"), new Mixed("Item 3"));
                
         mixed = new Mixed(map);
-        assertEquals(Mixed.TYPE_MAP, mixed.getType());
+        assertEquals(Mixed.TYPE_ARRAY, mixed.getType());
         assertFalse(mixed.isBoolean());
         assertFalse(mixed.isByte());
         assertFalse(mixed.isChar());
@@ -527,8 +503,7 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isShort());
         assertFalse(mixed.isNumber());
         assertFalse(mixed.isString());
-        assertTrue(mixed.isMap());
-        assertFalse(mixed.isList());
+        assertTrue(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
         assertEquals('{', mixed.toChar());
@@ -538,8 +513,8 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
         assertEquals("{key3=Item 3, 0=Item 1, 1=Item 2}", mixed.toString());
-        assertEquals(map, mixed.toMap());
-        list = mixed.toList();
+        assertEquals(map, mixed.toArray());
+        list = mixed.toArray();
         assertEquals(3, list.size());
         assertTrue(list.contains(new Mixed("Item 1")));
         assertTrue(list.contains(new Mixed("Item 2")));

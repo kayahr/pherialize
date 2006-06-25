@@ -24,11 +24,8 @@
 package de.ailis.pherialize;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 
 /**
@@ -76,11 +73,8 @@ public class Mixed implements Serializable, Comparable
     /** Constant for type "string" */
     public static final int TYPE_STRING = 8;
 
-    /** Constant for type "list" */
-    public static final int TYPE_LIST = 9;
-
-    /** Constant for type "map" */
-    public static final int TYPE_MAP = 10;
+    /** Constant for type "array" */
+    public static final int TYPE_ARRAY = 9;
 
     /** The value */
     private Object value;
@@ -99,8 +93,27 @@ public class Mixed implements Serializable, Comparable
     public Mixed(Object value)
     {
         super();
-        this.value = value;
-        this.type = Mixed.getTypeOf(value);
+        this.type = Mixed.getTypeOf(value);        
+        switch (this.type)
+        {
+            case TYPE_ARRAY:
+                if (value instanceof MixedArray)
+                {
+                    this.value = value;
+                }
+                else if (value instanceof List)
+                {
+                    this.value = new MixedArray((List) value);
+                }
+                else
+                {
+                    this.value = new MixedArray((Map) value);
+                }
+                break;
+                
+            default:                
+                this.value = value;
+        }
     }
 
 
@@ -243,11 +256,11 @@ public class Mixed implements Serializable, Comparable
         }
         else if (value instanceof List)
         {
-            return TYPE_LIST;
+            return TYPE_ARRAY;
         }
         else if (value instanceof Map)
         {
-            return TYPE_MAP;
+            return TYPE_ARRAY;
         }
         else if (value instanceof Character)
         {
@@ -320,6 +333,7 @@ public class Mixed implements Serializable, Comparable
 
     public String toString()
     {
+        if (this.value == null) return null;
         return this.value.toString();
     }
 
@@ -351,12 +365,10 @@ public class Mixed implements Serializable, Comparable
                 return Float.valueOf(toFloat());
             case TYPE_INT:
                 return Integer.valueOf(toInt());
-            case TYPE_LIST:
-                return toList();
             case TYPE_LONG:
                 return Long.valueOf(toLong());
-            case TYPE_MAP:
-                return toMap();
+            case TYPE_ARRAY:
+                return toArray();
             case TYPE_SHORT:
                 return Short.valueOf(toShort());
             case TYPE_STRING:
@@ -377,6 +389,7 @@ public class Mixed implements Serializable, Comparable
 
     public char toChar()
     {
+        if (this.value == null) return 0;
         if (toString().length() > 0)
         {
             return toString().charAt(0);
@@ -395,6 +408,7 @@ public class Mixed implements Serializable, Comparable
 
     public short toShort()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? (short) 1 : (short) 0;
         try
         {
@@ -417,6 +431,7 @@ public class Mixed implements Serializable, Comparable
 
     public byte toByte()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? (byte) 1 : (byte) 0;
         try
         {
@@ -439,6 +454,7 @@ public class Mixed implements Serializable, Comparable
 
     public int toInt()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
         try
         {
@@ -461,6 +477,7 @@ public class Mixed implements Serializable, Comparable
 
     public long toLong()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
         try
         {
@@ -483,6 +500,7 @@ public class Mixed implements Serializable, Comparable
 
     public float toFloat()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
         try
         {
@@ -496,60 +514,26 @@ public class Mixed implements Serializable, Comparable
 
 
     /**
-     * Returns the value as a list. If value is not a list or a map then null is
-     * returned. If value is a map then only the map values are returned.
+     * Returns the value as an array. If value is not an array then null is
+     * returned.
      * 
-     * @return The value as a list
+     * @return The value as an array
      */
 
-    public List toList()
+    public MixedArray toArray()
     {
-        if (isList())
+        if (this.value == null) return null;
+        if (isArray())
         {
-            return (List) this.value;
-        }
-        else if (isMap())
-        {
-            return new ArrayList(((Map) this.value).values());
+            return (MixedArray) this.value;
         }
         else
-            return null;
-    }
-
-
-    /**
-     * Returns the value as a map. If value is not a list or a map then null is
-     * returned. If value is a list then a SortedMap is constructed with
-     * ascending integer keys.
-     * 
-     * @return The value as a map
-     */
-
-    public Map toMap()
-    {
-        if (isMap())
         {
-            return (Map) this.value;
-        }
-        else if (isList())
-        {
-            SortedMap map;
-            List list;
-            int i, max;
-
-            list = (List) this.value;
-            map = new TreeMap();
-            for (i = 0, max = list.size(); i < max; i++)
-            {
-                map.put(Integer.valueOf(i), list.get(i));
-            }
-            return map;
-        }
-        else
             return null;
+        }
     }
-
-
+    
+    
     /**
      * Returns mixed value as a double. If value is a boolean value then 0 is
      * returned if value is false and 1 is returned if value is true. For any
@@ -560,6 +544,7 @@ public class Mixed implements Serializable, Comparable
 
     public double toDouble()
     {
+        if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
         try
         {
@@ -582,6 +567,7 @@ public class Mixed implements Serializable, Comparable
 
     public boolean toBoolean()
     {
+        if (this.value == null) return false;
         if (isBoolean())
         {
             return ((Boolean) this.value).booleanValue();
@@ -598,13 +584,9 @@ public class Mixed implements Serializable, Comparable
         {
             return toChar() != '\0';
         }
-        else if (isList())
+        else if (isArray())
         {
-            return toList().size() > 0;
-        }
-        else if (isMap())
-        {
-            return toMap().size() > 0;
+            return toArray().size() > 0;
         }
         else
             return false;
@@ -774,25 +756,13 @@ public class Mixed implements Serializable, Comparable
 
 
     /**
-     * Checks if type is a list.
+     * Checks if type is an array.
      * 
-     * @return If type is a list
+     * @return If type is a array
      */
 
-    public boolean isList()
+    public boolean isArray()
     {
-        return this.type == TYPE_LIST;
-    }
-
-
-    /**
-     * Checks if type is a map.
-     * 
-     * @return If type is a map
-     */
-
-    public boolean isMap()
-    {
-        return this.type == TYPE_MAP;
+        return this.type == TYPE_ARRAY;
     }
 }
