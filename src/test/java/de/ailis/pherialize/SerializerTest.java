@@ -68,6 +68,19 @@ public class SerializerTest extends TestCase
 
 
     /**
+     * Tests serializing a string
+     */
+
+    public void testSerializeCharacter()
+    {
+        Character test;
+
+        test = new Character('t');
+        assertEquals("s:1:\"t\";", Serializer.serialize(test));
+    }
+
+
+    /**
      * Tests serializing an integer value.
      */
 
@@ -144,7 +157,7 @@ public class SerializerTest extends TestCase
 
 
     /**
-     * Tests serializing a double value.
+     * Tests serializing a float value.
      */
 
     public void testSerializeFloat()

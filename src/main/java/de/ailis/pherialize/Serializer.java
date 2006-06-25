@@ -33,7 +33,7 @@ import de.ailis.pherialize.exceptions.SerializeException;
 
 
 /**
- * Pherialize
+ * Serializes Java objects in a PHP serializer format string.
  * 
  * @author Klaus Reimer (k.reimer@iplabs.de)
  * @version $Revision$
@@ -107,6 +107,10 @@ public class Serializer
         else if (object instanceof String)
         {
             serializeString((String) object);
+        }
+        else if (object instanceof Character)
+        {
+            serializeCharacter((Character) object);
         }
         else if (object instanceof Integer)
         {
@@ -202,6 +206,22 @@ public class Serializer
         this.buffer.append(string.length());
         this.buffer.append(":\"");
         this.buffer.append(string);
+        this.buffer.append("\";");
+    }
+
+
+    /**
+     * Serializes the specified character and appends it to the serialization
+     * buffer.
+     * 
+     * @param value
+     *            The value to serialize
+     */
+
+    private void serializeCharacter(Character value)
+    {
+        this.buffer.append("s:1:\"");
+        this.buffer.append(value);
         this.buffer.append("\";");
     }
 

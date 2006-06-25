@@ -13,6 +13,8 @@
     <menu name="Pherialize">
       <item name="About" href="index.html"/>
       <item name="Download" href="download.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="Types" href="types.html"/>
     </menu>
     
     ${reports}

@@ -26,23 +26,23 @@ package de.ailis.pherialize.exceptions;
 
 
 /**
- * Exception thrown when someting goes wrong while serializing.
+ * Exception thrown when someting goes wrong while unserializing.
  * 
  * @author Klaus Reimer (k@ailis.de)
  * @version $Revision$
  */
 
-public class SerializeException extends PherializeException
+public class UnserializeException extends PherializeException
 {
     /** Serial version UID */
-    private static final long serialVersionUID = 5304443329670892370L;
+    private static final long serialVersionUID = -7127648595193318947L;
 
 
     /**
      * Constructor
      */
 
-    public SerializeException()
+    public UnserializeException()
     {
         super();
     }
@@ -55,7 +55,7 @@ public class SerializeException extends PherializeException
      *            The exception message
      */
 
-    public SerializeException(String message)
+    public UnserializeException(String message)
     {
         super(message);
     }
@@ -70,7 +70,7 @@ public class SerializeException extends PherializeException
      *            The root cause
      */
 
-    public SerializeException(String message, Throwable cause)
+    public UnserializeException(String message, Throwable cause)
     {
         super(message, cause);
     }
@@ -83,7 +83,7 @@ public class SerializeException extends PherializeException
      *            The root cause
      */
 
-    public SerializeException(Throwable cause)
+    public UnserializeException(Throwable cause)
     {
         super(cause);
     }

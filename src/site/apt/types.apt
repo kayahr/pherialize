@@ -1,0 +1,58 @@
+Types
+
+  Because the data types in PHP are different to the types in Java conversion
+  is not always possible without switching to a different data type. If for
+  example you serialize a Java <Byte> then you will get a PHP <int> because PHP
+  does only knows the number types <int> and <double>. So when you unserialize this
+  <int> back into Java then you will end up with an <Integer> and not with a <Byte>.
+  The same problem comes up with <Long> objects. Pherialize serializes a <Long>
+  into a <int> if it fits an <Integer>. Otherwise it's serialized into a <double>.
+  
+  Here is a complete list of the conversions while serializing and 
+  unserializing:
+  
+*----------------+-----------------------------------------------------+
+| <<Java class>> | <<PHP type>>                                        |
+*----------------+-----------------------------------------------------+
+| null           | null                                                |
+*----------------+-----------------------------------------------------+
+| Boolean        | boolean                                             |
+*----------------+-----------------------------------------------------+
+| Character      | string                                              |
+*----------------+-----------------------------------------------------+
+| Byte           | int                                                 |
+*----------------+-----------------------------------------------------+
+| Short          | int                                                 |
+*----------------+-----------------------------------------------------+
+| Integer        | int                                                 |
+*----------------+-----------------------------------------------------+
+| Long           | int or double (Depending on how large the value is) |
+*----------------+-----------------------------------------------------+
+| Float          | double                                              |
+*----------------+-----------------------------------------------------+
+| Double         | double                                              |
+*----------------+-----------------------------------------------------+
+| String         | string                                              |
+*----------------+-----------------------------------------------------+
+| Collection     | array                                               |
+*----------------+-----------------------------------------------------+
+| Map            | array                                               |
+*----------------+-----------------------------------------------------+
+Serializer conversions
+
+*--------------+----------------------------------------------------------+
+| <<PHP type>> | <<Java class>>                                           |
+*--------------+----------------------------------------------------------+
+| null         | null                                                     |
+*--------------+----------------------------------------------------------+
+| boolean      | Boolean                                                  |
+*--------------+----------------------------------------------------------+
+| int          | Integer                                                  |
+*--------------+----------------------------------------------------------+
+| double       | Double                                                   |
+*--------------+----------------------------------------------------------+
+| string       | String                                                   |
+*--------------+----------------------------------------------------------+
+| array        | HashMap or ArrayList if keys are numerical starting by 0 |
+*--------------+----------------------------------------------------------+
+Unserializer conversions

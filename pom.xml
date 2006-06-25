@@ -49,10 +49,10 @@
       <!-- <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin> -->
-      <!-- <plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin> -->
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>

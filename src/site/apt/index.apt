@@ -7,3 +7,9 @@ What is Pherialize
   So with Pherialize you can serialize PHP objects and unserialize them into
   Java objects and vice versa.
   
+  References are supported, too. This allows you to serialize and unserialize
+  even complex types with circular references in it.
+  
+  Be warned that conversion from Java objects into PHP variables can lead to
+  data type switching because PHP has fewer data types then Java. Read more
+  details about it in the {{{types.html}types section}}.
