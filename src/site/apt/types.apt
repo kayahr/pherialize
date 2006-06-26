@@ -44,6 +44,8 @@ Types
 *----------------+-----------------------------------------------------+
 | Map            | array                                               |
 *----------------+-----------------------------------------------------+
+| Serializable   | object                                              |
+*----------------+-----------------------------------------------------+
 
   And here is a list of performed conversion when you unserialize PHP
   data in Java. But note that you will never get in touch with these

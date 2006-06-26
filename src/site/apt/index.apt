@@ -35,6 +35,8 @@ What is Pherialize
   
   * Map
   
+  * Serializable (Through Reflection API)
+  
   []
   
   The Unserializer supports the following PHP data types:
@@ -56,4 +58,8 @@ What is Pherialize
   References are supported, too. This allows you to serialize and unserialize
   even complex types with circular references in it.
 
-    
+* Latest release
+
+  The latest release of Pherialize is version 1.1.0. You can fetch it in the
+  {{{download.html}download}} section. To find out what has been changed take
+  a look in the {{{changes-report.html}changelog}}.

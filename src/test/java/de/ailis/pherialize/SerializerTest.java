@@ -283,4 +283,32 @@ public class SerializerTest extends TestCase
             "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}",
             Pherialize.serialize(persons));
     }
+
+
+    /**
+     * Tests serializing a Serializable object
+     */
+
+    public void testSerializeSerializable()
+    {
+        Person person;
+
+        person = new Person("Arthur Dent", 42, true, null);
+        assertEquals("O:6:\"person\":4:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:42;s:9:\"earthling\";b:1;s:7:\"special\";N;}",
+            Pherialize.serialize(person));
+    }
+
+
+    /**
+     * Tests serializing a Serializable inherited object
+     */
+
+    public void testSerializeInheritedSerializable()
+    {
+        InheritedPerson person;
+
+        person = new InheritedPerson("Arthur Dent", 42, true, null);
+        assertEquals("O:15:\"inheritedperson\":4:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:42;s:9:\"earthling\";b:1;s:7:\"special\";N;}",
+            Pherialize.serialize(person));
+    }
 }

@@ -58,8 +58,7 @@ public class Pherialize
         Serializer pherialize;
 
         pherialize = new Serializer();
-        pherialize.serializeObject(object);
-        return pherialize.toString();
+        return pherialize.serialize(object);
     }
 
 

@@ -23,6 +23,9 @@
 
 package de.ailis.pherialize;
 
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,9 +44,6 @@ import de.ailis.pherialize.exceptions.SerializeException;
 
 public class Serializer
 {
-    /** The string buffer used for serializing */
-    private StringBuffer buffer;
-
     /** The object history for resolving references */
     private List history;
 
@@ -55,18 +55,25 @@ public class Serializer
     public Serializer()
     {
         super();
-        this.buffer = new StringBuffer();
         this.history = new ArrayList();
     }
 
 
     /**
-     * @see java.lang.Object#toString()
+     * Serializes the specified object.
+     * 
+     * @param object
+     *            The object
+     * @return The serialized data
      */
 
-    public String toString()
+    public String serialize(Object object)
     {
-        return this.buffer.toString();
+        StringBuffer buffer;
+
+        buffer = new StringBuffer();
+        serializeObject(object, buffer);
+        return buffer.toString();
     }
 
 
@@ -76,67 +83,74 @@ public class Serializer
      * 
      * @param object
      *            The object to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    public void serializeObject(Object object)
+    private void serializeObject(Object object, StringBuffer buffer)
     {
         if (object == null)
         {
-            serializeNull();
+            serializeNull(buffer);
         }
-        else if (serializeReference(object))
+        else if (serializeReference(object, buffer))
         {
             return;
         }
         else if (object instanceof String)
         {
-            serializeString((String) object);
+            serializeString((String) object, buffer);
         }
         else if (object instanceof Character)
         {
-            serializeCharacter((Character) object);
+            serializeCharacter((Character) object, buffer);
         }
         else if (object instanceof Integer)
         {
-            serializeInteger(((Integer) object).intValue());
+            serializeInteger(((Integer) object).intValue(), buffer);
         }
         else if (object instanceof Short)
         {
-            serializeInteger(((Short) object).intValue());
+            serializeInteger(((Short) object).intValue(), buffer);
         }
         else if (object instanceof Byte)
         {
-            serializeInteger(((Byte) object).intValue());
+            serializeInteger(((Byte) object).intValue(), buffer);
         }
         else if (object instanceof Long)
         {
-            serializeLong(((Long) object).longValue());
+            serializeLong(((Long) object).longValue(), buffer);
         }
         else if (object instanceof Double)
         {
-            serializeDouble(((Double) object).doubleValue());
+            serializeDouble(((Double) object).doubleValue(), buffer);
         }
         else if (object instanceof Float)
         {
-            serializeDouble(((Float) object).doubleValue());
+            serializeDouble(((Float) object).doubleValue(), buffer);
         }
         else if (object instanceof Boolean)
         {
-            serializeBoolean((Boolean) object);
+            serializeBoolean((Boolean) object, buffer);
         }
         else if (object instanceof Collection)
         {
-            serializeCollection((Collection) object);
+            serializeCollection((Collection) object, buffer);
             return;
         }
         else if (object instanceof Map)
         {
-            serializeMap((Map) object);
+            serializeMap((Map) object, buffer);
+            return;
+        }
+        else if (object instanceof Serializable)
+        {
+            serializeSerializable((Serializable) object, buffer);
             return;
         }
         else
         {
-            throw new SerializeException("Unable how to serialize "
+            throw new SerializeException("Unable to serialize "
                 + object.getClass().getName());
         }
 
@@ -151,10 +165,12 @@ public class Serializer
      * 
      * @param object
      *            The object to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      * @return If a reference was serialized or not
      */
 
-    private boolean serializeReference(Object object)
+    private boolean serializeReference(Object object, StringBuffer buffer)
     {
         Iterator iterator;
         int index;
@@ -167,9 +183,9 @@ public class Serializer
         {
             if (iterator.next() == object)
             {
-                this.buffer.append("R:");
-                this.buffer.append(index + 1);
-                this.buffer.append(';');
+                buffer.append("R:");
+                buffer.append(index + 1);
+                buffer.append(';');
                 isReference = true;
                 break;
             }
@@ -185,15 +201,17 @@ public class Serializer
      * 
      * @param string
      *            The string to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeString(String string)
+    private void serializeString(String string, StringBuffer buffer)
     {
-        this.buffer.append("s:");
-        this.buffer.append(string.length());
-        this.buffer.append(":\"");
-        this.buffer.append(string);
-        this.buffer.append("\";");
+        buffer.append("s:");
+        buffer.append(string.length());
+        buffer.append(":\"");
+        buffer.append(string);
+        buffer.append("\";");
     }
 
 
@@ -203,23 +221,28 @@ public class Serializer
      * 
      * @param value
      *            The value to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeCharacter(Character value)
+    private void serializeCharacter(Character value, StringBuffer buffer)
     {
-        this.buffer.append("s:1:\"");
-        this.buffer.append(value);
-        this.buffer.append("\";");
+        buffer.append("s:1:\"");
+        buffer.append(value);
+        buffer.append("\";");
     }
 
 
     /**
      * Adds a serialized NULL to the serialization buffer.
+     * 
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeNull()
+    private void serializeNull(StringBuffer buffer)
     {
-        this.buffer.append("N;");
+        buffer.append("N;");
     }
 
 
@@ -229,13 +252,15 @@ public class Serializer
      * 
      * @param number
      *            The integer number to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeInteger(int number)
+    private void serializeInteger(int number, StringBuffer buffer)
     {
-        this.buffer.append("i:");
-        this.buffer.append(number);
-        this.buffer.append(';');
+        buffer.append("i:");
+        buffer.append(number);
+        buffer.append(';');
     }
 
 
@@ -245,20 +270,22 @@ public class Serializer
      * 
      * @param number
      *            The lonf number to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeLong(long number)
+    private void serializeLong(long number, StringBuffer buffer)
     {
         if ((number >= Integer.MIN_VALUE) && (number <= Integer.MAX_VALUE))
         {
-            this.buffer.append("i:");
+            buffer.append("i:");
         }
         else
         {
-            this.buffer.append("d:");
+            buffer.append("d:");
         }
-        this.buffer.append(number);
-        this.buffer.append(';');
+        buffer.append(number);
+        buffer.append(';');
     }
 
 
@@ -268,13 +295,15 @@ public class Serializer
      * 
      * @param number
      *            The number to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeDouble(double number)
+    private void serializeDouble(double number, StringBuffer buffer)
     {
-        this.buffer.append("d:");
-        this.buffer.append(number);
-        this.buffer.append(';');
+        buffer.append("d:");
+        buffer.append(number);
+        buffer.append(';');
     }
 
 
@@ -284,13 +313,15 @@ public class Serializer
      * 
      * @param value
      *            The value to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeBoolean(Boolean value)
+    private void serializeBoolean(Boolean value, StringBuffer buffer)
     {
-        this.buffer.append("b:");
-        this.buffer.append(value.booleanValue() ? 1 : 0);
-        this.buffer.append(';');
+        buffer.append("b:");
+        buffer.append(value.booleanValue() ? 1 : 0);
+        buffer.append(';');
     }
 
 
@@ -300,27 +331,29 @@ public class Serializer
      * 
      * @param collection
      *            The collection to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeCollection(Collection collection)
+    private void serializeCollection(Collection collection, StringBuffer buffer)
     {
         Iterator iterator;
         int index;
 
         this.history.add(collection);
-        this.buffer.append("a:");
-        this.buffer.append(collection.size());
-        this.buffer.append(":{");
+        buffer.append("a:");
+        buffer.append(collection.size());
+        buffer.append(":{");
         iterator = collection.iterator();
         index = 0;
         while (iterator.hasNext())
         {
-            serializeObject(Integer.valueOf(index));
+            serializeObject(Integer.valueOf(index), buffer);
             this.history.remove(this.history.size() - 1);
-            serializeObject(iterator.next());
+            serializeObject(iterator.next(), buffer);
             index++;
         }
-        this.buffer.append('}');
+        buffer.append('}');
     }
 
 
@@ -329,25 +362,100 @@ public class Serializer
      * 
      * @param map
      *            The map to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
      */
 
-    private void serializeMap(Map map)
+    private void serializeMap(Map map, StringBuffer buffer)
     {
         Iterator iterator;
         Object key;
 
         this.history.add(map);
-        this.buffer.append("a:");
-        this.buffer.append(map.size());
-        this.buffer.append(":{");
+        buffer.append("a:");
+        buffer.append(map.size());
+        buffer.append(":{");
         iterator = map.keySet().iterator();
         while (iterator.hasNext())
         {
             key = iterator.next();
-            serializeObject(key);
+            serializeObject(key, buffer);
             this.history.remove(this.history.size() - 1);
-            serializeObject(map.get(key));
+            serializeObject(map.get(key), buffer);
         }
-        this.buffer.append('}');
+        buffer.append('}');
+    }
+
+
+    /**
+     * Serializes a serializable object
+     * 
+     * @param object
+     *            The serializable object
+     * @param buffer
+     *            The string buffer to append serialized data to
+     */
+
+    private void serializeSerializable(Serializable object, StringBuffer buffer)
+    {
+        String className;
+        Class c;
+        Field[] fields;
+        int i, max;
+        Field field;
+        String key;
+        Object value;
+        StringBuffer fieldBuffer;
+        int fieldCount;
+
+        this.history.add(object);
+        c = object.getClass();
+        className = c.getSimpleName().toLowerCase();
+        buffer.append("O:");
+        buffer.append(className.length());
+        buffer.append(":\"");
+        buffer.append(className);
+        buffer.append("\":");
+
+        fieldBuffer = new StringBuffer();
+        fieldCount = 0;
+        while (c != null)
+        {
+            fields = c.getDeclaredFields();
+            for (i = 0, max = fields.length; i < max; i++)
+            {
+                field = fields[i];
+                if (Modifier.isStatic(field.getModifiers())) continue;
+                if (Modifier.isVolatile(field.getModifiers())) continue;
+                
+                try
+                {
+                    field.setAccessible(true);
+                    key = field.getName();
+                    value = field.get(object);
+                    serializeObject(key, fieldBuffer);
+                    this.history.remove(this.history.size() - 1);
+                    serializeObject(value, fieldBuffer);
+                    fieldCount++;
+                }
+                catch (SecurityException e)
+                {
+                //  Field is just ignored when this exception is thrown
+                }
+                catch (IllegalArgumentException e)
+                {
+                //  Field is just ignored when this exception is thrown
+                }
+                catch (IllegalAccessException e)
+                {
+                //  Field is just ignored when this exception is thrown
+                }
+            }
+            c = c.getSuperclass();
+        }
+        buffer.append(fieldCount);
+        buffer.append(":{");
+        buffer.append(fieldBuffer);
+        buffer.append("}");
     }
 }
