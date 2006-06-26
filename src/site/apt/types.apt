@@ -9,7 +9,8 @@ Types
   into a <int> if it fits an <Integer>. Otherwise it's serialized into a <double>.
   
   To make life easier while unserializing PHP data into Java all PHP data
-  types are wrapped by an object of type Mixed. From this object you can 
+  types are wrapped by an object of type {{{apidocs/de/ailis/pherialize/Mixed.html}<Mixed>}}. 
+  From this object you can 
   convert the data easily in whatever you need (as long as the conversion makes
   sense). 
   

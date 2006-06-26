@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.ailis.pherialize</groupId>
   <artifactId>pherialize</artifactId>
@@ -16,7 +19,7 @@
   <scm>
     <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
     <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
-    <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection>
+    <!-- <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection> -->
   </scm>
   
   <build>
@@ -48,11 +51,11 @@
     <plugins>
       <!-- <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin> -->
-      <plugin>
+      </plugin> -->      
+      <!-- <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin>
+      </plugin> -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
@@ -92,11 +95,9 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
       </plugin>
-      <!--     
-      <plugin>
+      <!-- <plugin>
         <artifactId>maven-clover-plugin</artifactId>
-      </plugin>
-      -->
+      </plugin> -->
       <plugin>
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-pmd-plugin</artifactId>
@@ -104,7 +105,7 @@
             <targetjdk>1.4</targetjdk>
             <rulesets>
                <ruleset>/rulesets/basic.xml</ruleset>
-               <ruleset>/rulesets/controversial.xml</ruleset>
+               <!-- <ruleset>/rulesets/controversial.xml</ruleset> -->
             </rulesets>
             <format>xml</format>
             <linkXref>true</linkXref>
