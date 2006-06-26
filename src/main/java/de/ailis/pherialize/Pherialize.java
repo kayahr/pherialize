@@ -36,6 +36,16 @@ package de.ailis.pherialize;
 public class Pherialize
 {
     /**
+     * Hide constructor
+     */
+    
+    private Pherialize()
+    {
+        // Empty
+    }
+    
+    
+    /**
      * Returns the serialized represetation of the specified object.
      * 
      * @param object
