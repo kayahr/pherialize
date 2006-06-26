@@ -25,6 +25,7 @@ package de.ailis.pherialize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -226,7 +227,7 @@ public class SerializerTest extends TestCase
             Serializer.serialize(test));
     }
 
-    
+
     /**
      * Tests serializing an array with a reference in it.
      */
@@ -235,7 +236,7 @@ public class SerializerTest extends TestCase
     {
         List test;
         String test2;
-        
+
         test = new ArrayList();
         test2 = "Test 2";
         test.add("Test 1");
@@ -243,7 +244,43 @@ public class SerializerTest extends TestCase
         test.add(new String("Test 1"));
         test.add(test2);
         test.add(new String("Test 1"));
-        assertEquals("a:5:{i:0;s:6:\"Test 1\";i:1;s:6:\"Test 2\";i:2;s:6:\"Test 1\";i:3;R:3;i:4;s:6:\"Test 1\";}",
+        assertEquals(
+            "a:5:{i:0;s:6:\"Test 1\";i:1;s:6:\"Test 2\";i:2;s:6:\"Test 1\";i:3;R:3;i:4;s:6:\"Test 1\";}",
             Serializer.serialize(test));
+    }
+
+
+    /**
+     * Tests serializing a complex array
+     */
+
+    public void testComplex()
+    {
+        Map arthur, ford;
+        List persons;
+
+        persons = new ArrayList();
+
+        arthur = new LinkedHashMap();
+        arthur.put("name", "Arthur Dent");
+        arthur.put("age", Integer.valueOf(43));
+        arthur.put("earthling", Boolean.TRUE);
+        arthur.put("special", null);
+
+        ford = new LinkedHashMap();
+        ford.put("name", "Ford Prefect");
+        ford.put("age", Integer.valueOf(39));
+        ford.put("earthling", Boolean.FALSE);
+        ford.put("special", null);
+
+        arthur.put("comrade", ford);
+        ford.put("comrade", arthur);
+
+        persons.add(arthur);
+        persons.add(ford);
+
+        assertEquals(
+            "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}", 
+            Serializer.serialize(persons));
     }
 }

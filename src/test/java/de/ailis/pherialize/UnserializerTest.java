@@ -183,11 +183,10 @@ public class UnserializerTest extends TestCase
 
         persons = Unserializer
             .unserialize(
-                "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";s:2:\"39\";s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}"
-                /*"a:2:{i:0;a:4:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;}i:1;a:4:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";s:2:\"39\";s:9:\"earthling\";b:0;s:7:\"special\";N;}}"*/)
+                "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}")
             .toArray();
         assertEquals(2, persons.size());
-        
+
         arthur = persons.getArray(0);
         assertEquals("Arthur Dent", arthur.getString("name"));
         assertEquals(43, arthur.getInt("age"));
@@ -199,5 +198,8 @@ public class UnserializerTest extends TestCase
         assertEquals(39, ford.getInt("age"));
         assertEquals(false, ford.getBoolean("earthling"));
         assertNull(ford.getString("special"));
+
+        assertSame(ford, arthur.getArray("comrade"));
+        assertSame(arthur, ford.getArray("comrade"));
     }
 }

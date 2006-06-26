@@ -4,8 +4,8 @@
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>0.9.2-SNAPSHOT</version>
-  <url>http://www.ailis.de/~k/software/projects/clamp/</url>
+  <version>1.0.0</version>
+  <url>http://www.ailis.de/~k/software/projects/pherialize/</url>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
   <organization>
@@ -145,7 +145,7 @@
     <repository>
       <id>kay-repository</id>
       <name>Kay's Maven repository</name>
-      <url>scpexe://k@ailis.de/home/k/repository/maven/</url>
+      <url>scpexe://k@ailis.de/home/k/public_html/software/maven2/</url>
     </repository>
     <site>
       <id>website</id>

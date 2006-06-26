@@ -8,8 +8,13 @@ Types
   The same problem comes up with <Long> objects. Pherialize serializes a <Long>
   into a <int> if it fits an <Integer>. Otherwise it's serialized into a <double>.
   
-  Here is a complete list of the conversions while serializing and 
-  unserializing:
+  To make life easier while unserializing PHP data into Java all PHP data
+  types are wrapped by an object of type Mixed. From this object you can 
+  convert the data easily in whatever you need (as long as the conversion makes
+  sense). 
+  
+  Here is a complete list of the conversions performed when serializing Java
+  data types and unserializing them in PHP:
   
 *----------------+-----------------------------------------------------+
 | <<Java class>> | <<PHP type>>                                        |
@@ -38,7 +43,10 @@ Types
 *----------------+-----------------------------------------------------+
 | Map            | array                                               |
 *----------------+-----------------------------------------------------+
-Serializer conversions
+
+  And here is a list of performed conversion when you unserialize PHP
+  data in Java. But note that you will never get in touch with these
+  conversions because it's completely hidden by the <Mixed wrapper>.
 
 *--------------+----------------------------------------------------------+
 | <<PHP type>> | <<Java class>>                                           |
@@ -53,6 +61,5 @@ Serializer conversions
 *--------------+----------------------------------------------------------+
 | string       | String                                                   |
 *--------------+----------------------------------------------------------+
-| array        | HashMap or ArrayList if keys are numerical starting by 0 |
+| array        | Map                                                      |
 *--------------+----------------------------------------------------------+
-Unserializer conversions

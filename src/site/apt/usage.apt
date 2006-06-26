@@ -22,7 +22,7 @@ System.out.println(Serializer.serialize(list));
   The result is printed to stdout and looks like this:
   
 ---
-  a:3:{i:0;s:8:"A string";i:1;i:12345;i:2;b:1;}
+a:3:{i:0;s:8:"A string";i:1;i:12345;i:2;b:1;}
 ---
 
   Now you can use this string in PHP to unserialize it back into a PHP array:
@@ -44,4 +44,28 @@ array(3) {
   [2]=>
   bool(true)
 }
+---
+
+* How to unserialize data
+
+  Let's assume you have serialized the PHP array from the previous example and
+  you have stored this serialized string in the variable <data>. For unserializing and
+  printing the value you just have to do this:
+  
+---
+MixedArray list;
+
+list = Unserializer.unserialize(data).toArray();
+System.out.println("Item 1: " + list.getString(0));
+System.out.println("Item 2: " + list.getInteger(1));
+System.out.println("Item 3: " + list.getBoolean(2));
+---
+
+  The correct result printed to stdout is this:
+  
+---
+Item 1: A string
+Item 2: 12345
+Item 3: true
+---
   

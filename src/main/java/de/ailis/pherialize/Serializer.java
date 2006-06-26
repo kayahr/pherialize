@@ -43,7 +43,7 @@ public class Serializer
 {
     /** The string buffer used for serializing */
     private StringBuffer buffer;
-    
+
     /** The object history for resolving references */
     private List history;
 
@@ -98,11 +98,13 @@ public class Serializer
 
     private void serializeObject(Object object)
     {
-        if (serializeReference(object)) return;
-        
         if (object == null)
         {
             serializeNull();
+        }
+        else if (serializeReference(object))
+        {
+            return;
         }
         else if (object instanceof String)
         {
@@ -143,36 +145,39 @@ public class Serializer
         else if (object instanceof Collection)
         {
             serializeCollection((Collection) object);
+            return;
         }
         else if (object instanceof Map)
         {
             serializeMap((Map) object);
+            return;
         }
         else
         {
             throw new SerializeException("Unable how to serialize "
                 + object.getClass().getName());
         }
-        
+
         this.history.add(object);
     }
-    
-    
+
+
     /**
      * Tries to serialize a reference if the specified object was already
      * serialized. It returns true in this case. If the object was not
      * serialized before then false is returned.
-     *
-     * @param object The object to serialize
+     * 
+     * @param object
+     *            The object to serialize
      * @return If a reference was serialized or not
      */
-    
+
     private boolean serializeReference(Object object)
     {
         Iterator iterator;
         int index;
         boolean isReference;
-       
+
         iterator = this.history.iterator();
         index = 0;
         isReference = false;
@@ -181,7 +186,7 @@ public class Serializer
             if (iterator.next() == object)
             {
                 this.buffer.append("R:");
-                this.buffer.append(index);
+                this.buffer.append(index + 1);
                 this.buffer.append(';');
                 isReference = true;
                 break;
@@ -320,6 +325,7 @@ public class Serializer
         Iterator iterator;
         int index;
 
+        this.history.add(collection);
         this.buffer.append("a:");
         this.buffer.append(collection.size());
         this.buffer.append(":{");
@@ -328,6 +334,7 @@ public class Serializer
         while (iterator.hasNext())
         {
             serializeObject(Integer.valueOf(index));
+            this.history.remove(this.history.size() - 1);
             serializeObject(iterator.next());
             index++;
         }
@@ -347,6 +354,7 @@ public class Serializer
         Iterator iterator;
         Object key;
 
+        this.history.add(map);
         this.buffer.append("a:");
         this.buffer.append(map.size());
         this.buffer.append(":{");
@@ -355,6 +363,7 @@ public class Serializer
         {
             key = iterator.next();
             serializeObject(key);
+            this.history.remove(this.history.size() - 1);
             serializeObject(map.get(key));
         }
         this.buffer.append('}');
