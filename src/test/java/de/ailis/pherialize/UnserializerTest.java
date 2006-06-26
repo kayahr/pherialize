@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 
 
 /**
- * Test class for Unserializer
+ * Test class for Pherialize
  * 
  * @author Klaus Reimer (k@ailis.de)
  * @version $Revision$
@@ -58,7 +58,7 @@ public class UnserializerTest extends TestCase
         String data;
 
         data = "s:4:\"Test\"";
-        assertEquals("Test", Unserializer.unserialize(data).toString());
+        assertEquals("Test", Pherialize.unserialize(data).toString());
     }
 
 
@@ -68,11 +68,11 @@ public class UnserializerTest extends TestCase
 
     public void testUnserializeInteger()
     {
-        assertEquals(0, Unserializer.unserialize("i:0;").toInt());
-        assertEquals(-1, Unserializer.unserialize("i:-1;").toInt());
-        assertEquals(2147483647, Unserializer.unserialize("i:2147483647;")
+        assertEquals(0, Pherialize.unserialize("i:0;").toInt());
+        assertEquals(-1, Pherialize.unserialize("i:-1;").toInt());
+        assertEquals(2147483647, Pherialize.unserialize("i:2147483647;")
             .toInt());
-        assertEquals(-2147483648, Unserializer.unserialize("i:-2147483648;")
+        assertEquals(-2147483648, Pherialize.unserialize("i:-2147483648;")
             .toInt());
     }
 
@@ -83,10 +83,10 @@ public class UnserializerTest extends TestCase
 
     public void testUnserializeDouble()
     {
-        assertEquals(0, Unserializer.unserialize("d:0.0;").toDouble(), 0);
-        assertEquals(-1, Unserializer.unserialize("d:-1.0;").toDouble(), 0);
-        assertEquals(-10.1, Unserializer.unserialize("d:-10.1;").toDouble(), 0);
-        assertEquals(545.159122, Unserializer.unserialize("d:545.159122;")
+        assertEquals(0, Pherialize.unserialize("d:0.0;").toDouble(), 0);
+        assertEquals(-1, Pherialize.unserialize("d:-1.0;").toDouble(), 0);
+        assertEquals(-10.1, Pherialize.unserialize("d:-10.1;").toDouble(), 0);
+        assertEquals(545.159122, Pherialize.unserialize("d:545.159122;")
             .toDouble(), 0);
     }
 
@@ -97,8 +97,8 @@ public class UnserializerTest extends TestCase
 
     public void testUnserializeBoolean()
     {
-        assertEquals(false, Unserializer.unserialize("b:0;").toBoolean());
-        assertEquals(true, Unserializer.unserialize("b:1;").toBoolean());
+        assertEquals(false, Pherialize.unserialize("b:0;").toBoolean());
+        assertEquals(true, Pherialize.unserialize("b:1;").toBoolean());
     }
 
 
@@ -108,7 +108,7 @@ public class UnserializerTest extends TestCase
 
     public void testUnserializeNull()
     {
-        assertNull(Unserializer.unserialize("N;"));
+        assertNull(Pherialize.unserialize("N;"));
     }
 
 
@@ -120,7 +120,7 @@ public class UnserializerTest extends TestCase
     {
         MixedArray test;
 
-        test = Unserializer.unserialize(
+        test = Pherialize.unserialize(
             "a:3:{s:4:\"key1\";s:4:\"Test\";i:1;i:12345;s:4:\"key2\";b:1;}")
             .toArray();
         assertEquals(3, test.size());
@@ -139,7 +139,7 @@ public class UnserializerTest extends TestCase
     {
         MixedArray test;
 
-        test = Unserializer.unserialize(
+        test = Pherialize.unserialize(
             "a:3:{i:0;s:4:\"Test\";i:1;i:12345;i:2;b:1;}").toArray();
         assertEquals(3, test.size());
         assertEquals(new Mixed("Test"), test.get(0));
@@ -152,11 +152,11 @@ public class UnserializerTest extends TestCase
      * Tests unserializing an array with a reference in it.
      */
 
-    public void testUnserializeReference()
+    public void testPherializeeference()
     {
         MixedArray test;
 
-        test = Unserializer
+        test = Pherialize
             .unserialize(
                 "a:5:{i:0;s:6:\"Test 1\";i:1;s:6:\"Test 2\";i:2;s:6:\"Test 1\";i:3;R:3;i:4;s:6:\"Test 1\";}")
             .toArray();
@@ -181,7 +181,7 @@ public class UnserializerTest extends TestCase
         MixedArray persons;
         MixedArray arthur, ford;
 
-        persons = Unserializer
+        persons = Pherialize
             .unserialize(
                 "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}")
             .toArray();

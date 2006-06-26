@@ -52,7 +52,7 @@ public class Serializer
      * Constructor
      */
 
-    private Serializer()
+    public Serializer()
     {
         super();
         this.buffer = new StringBuffer();
@@ -71,24 +71,6 @@ public class Serializer
 
 
     /**
-     * Returns the serialized represetation of the specified object.
-     * 
-     * @param object
-     *            The object to serialize
-     * @return The serialized representation of the object
-     */
-
-    public static String serialize(Object object)
-    {
-        Serializer pherialize;
-
-        pherialize = new Serializer();
-        pherialize.serializeObject(object);
-        return pherialize.toString();
-    }
-
-
-    /**
      * This method is used internally for recursively scanning the object while
      * serializing.
      * 
@@ -96,7 +78,7 @@ public class Serializer
      *            The object to serialize
      */
 
-    private void serializeObject(Object object)
+    public void serializeObject(Object object)
     {
         if (object == null)
         {

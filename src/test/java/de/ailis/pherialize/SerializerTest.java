@@ -64,7 +64,7 @@ public class SerializerTest extends TestCase
         String test;
 
         test = "Test";
-        assertEquals("s:4:\"Test\";", Serializer.serialize(test));
+        assertEquals("s:4:\"Test\";", Pherialize.serialize(test));
     }
 
 
@@ -77,7 +77,7 @@ public class SerializerTest extends TestCase
         Character test;
 
         test = new Character('t');
-        assertEquals("s:1:\"t\";", Serializer.serialize(test));
+        assertEquals("s:1:\"t\";", Pherialize.serialize(test));
     }
 
 
@@ -87,11 +87,11 @@ public class SerializerTest extends TestCase
 
     public void testSerializeInteger()
     {
-        assertEquals("i:0;", Serializer.serialize(Integer.valueOf(0)));
-        assertEquals("i:-1;", Serializer.serialize(Integer.valueOf(-1)));
-        assertEquals("i:2147483647;", Serializer.serialize(Integer
+        assertEquals("i:0;", Pherialize.serialize(Integer.valueOf(0)));
+        assertEquals("i:-1;", Pherialize.serialize(Integer.valueOf(-1)));
+        assertEquals("i:2147483647;", Pherialize.serialize(Integer
             .valueOf(2147483647)));
-        assertEquals("i:-2147483648;", Serializer.serialize(Integer
+        assertEquals("i:-2147483648;", Pherialize.serialize(Integer
             .valueOf(-2147483648)));
     }
 
@@ -102,11 +102,11 @@ public class SerializerTest extends TestCase
 
     public void testSerializeShort()
     {
-        assertEquals("i:0;", Serializer.serialize(Short.valueOf((short) 0)));
-        assertEquals("i:-1;", Serializer.serialize(Short.valueOf((short) -1)));
-        assertEquals("i:32767;", Serializer.serialize(Short
+        assertEquals("i:0;", Pherialize.serialize(Short.valueOf((short) 0)));
+        assertEquals("i:-1;", Pherialize.serialize(Short.valueOf((short) -1)));
+        assertEquals("i:32767;", Pherialize.serialize(Short
             .valueOf((short) 32767)));
-        assertEquals("i:-32768;", Serializer.serialize(Short
+        assertEquals("i:-32768;", Pherialize.serialize(Short
             .valueOf((short) -32768)));
     }
 
@@ -117,10 +117,10 @@ public class SerializerTest extends TestCase
 
     public void testSerializeByte()
     {
-        assertEquals("i:0;", Serializer.serialize(Byte.valueOf((byte) 0)));
-        assertEquals("i:-1;", Serializer.serialize(Byte.valueOf((byte) -1)));
-        assertEquals("i:127;", Serializer.serialize(Byte.valueOf((byte) 127)));
-        assertEquals("i:-128;", Serializer.serialize(Byte.valueOf((byte) -128)));
+        assertEquals("i:0;", Pherialize.serialize(Byte.valueOf((byte) 0)));
+        assertEquals("i:-1;", Pherialize.serialize(Byte.valueOf((byte) -1)));
+        assertEquals("i:127;", Pherialize.serialize(Byte.valueOf((byte) 127)));
+        assertEquals("i:-128;", Pherialize.serialize(Byte.valueOf((byte) -128)));
     }
 
 
@@ -130,15 +130,15 @@ public class SerializerTest extends TestCase
 
     public void testSerializeLong()
     {
-        assertEquals("i:0;", Serializer.serialize(Long.valueOf(0)));
-        assertEquals("i:-1;", Serializer.serialize(Long.valueOf(-1)));
-        assertEquals("i:2147483647;", Serializer.serialize(Long
+        assertEquals("i:0;", Pherialize.serialize(Long.valueOf(0)));
+        assertEquals("i:-1;", Pherialize.serialize(Long.valueOf(-1)));
+        assertEquals("i:2147483647;", Pherialize.serialize(Long
             .valueOf(2147483647)));
-        assertEquals("i:-2147483648;", Serializer.serialize(Long
+        assertEquals("i:-2147483648;", Pherialize.serialize(Long
             .valueOf(-2147483648)));
-        assertEquals("d:2147483648;", Serializer.serialize(Long
+        assertEquals("d:2147483648;", Pherialize.serialize(Long
             .valueOf(2147483648L)));
-        assertEquals("d:-2147483649;", Serializer.serialize(Long
+        assertEquals("d:-2147483649;", Pherialize.serialize(Long
             .valueOf(-2147483649L)));
     }
 
@@ -149,10 +149,10 @@ public class SerializerTest extends TestCase
 
     public void testSerializeDouble()
     {
-        assertEquals("d:0.0;", Serializer.serialize(Double.valueOf(0)));
-        assertEquals("d:-1.0;", Serializer.serialize(Double.valueOf(-1)));
-        assertEquals("d:-10.1;", Serializer.serialize(Double.valueOf(-10.1)));
-        assertEquals("d:545.159122;", Serializer.serialize(Double
+        assertEquals("d:0.0;", Pherialize.serialize(Double.valueOf(0)));
+        assertEquals("d:-1.0;", Pherialize.serialize(Double.valueOf(-1)));
+        assertEquals("d:-10.1;", Pherialize.serialize(Double.valueOf(-10.1)));
+        assertEquals("d:545.159122;", Pherialize.serialize(Double
             .valueOf(545.159122)));
     }
 
@@ -163,11 +163,11 @@ public class SerializerTest extends TestCase
 
     public void testSerializeFloat()
     {
-        assertEquals("d:0.0;", Serializer.serialize(Float.valueOf(0)));
-        assertEquals("d:-1.0;", Serializer.serialize(Float.valueOf(-1)));
-        assertEquals("d:-10.100000381469727;", Serializer.serialize(Float
+        assertEquals("d:0.0;", Pherialize.serialize(Float.valueOf(0)));
+        assertEquals("d:-1.0;", Pherialize.serialize(Float.valueOf(-1)));
+        assertEquals("d:-10.100000381469727;", Pherialize.serialize(Float
             .valueOf((float) -10.100000381469727)));
-        assertEquals("d:545.1591186523438;", Serializer.serialize(Float
+        assertEquals("d:545.1591186523438;", Pherialize.serialize(Float
             .valueOf((float) 545.1591186523438)));
     }
 
@@ -178,8 +178,8 @@ public class SerializerTest extends TestCase
 
     public void testSerializeBoolean()
     {
-        assertEquals("b:0;", Serializer.serialize(Boolean.FALSE));
-        assertEquals("b:1;", Serializer.serialize(Boolean.TRUE));
+        assertEquals("b:0;", Pherialize.serialize(Boolean.FALSE));
+        assertEquals("b:1;", Pherialize.serialize(Boolean.TRUE));
     }
 
 
@@ -189,7 +189,7 @@ public class SerializerTest extends TestCase
 
     public void testSerializeNull()
     {
-        assertEquals("N;", Serializer.serialize(null));
+        assertEquals("N;", Pherialize.serialize(null));
     }
 
 
@@ -205,7 +205,7 @@ public class SerializerTest extends TestCase
         test.add("Test");
         test.add(Integer.valueOf(12345));
         test.add(Boolean.TRUE);
-        assertEquals("a:3:{i:0;s:4:\"Test\";i:1;i:12345;i:2;b:1;}", Serializer
+        assertEquals("a:3:{i:0;s:4:\"Test\";i:1;i:12345;i:2;b:1;}", Pherialize
             .serialize(test));
     }
 
@@ -224,7 +224,7 @@ public class SerializerTest extends TestCase
         test.put("key2", Boolean.TRUE);
         assertEquals(
             "a:3:{s:4:\"key1\";s:4:\"Test\";i:1;i:12345;s:4:\"key2\";b:1;}",
-            Serializer.serialize(test));
+            Pherialize.serialize(test));
     }
 
 
@@ -246,7 +246,7 @@ public class SerializerTest extends TestCase
         test.add(new String("Test 1"));
         assertEquals(
             "a:5:{i:0;s:6:\"Test 1\";i:1;s:6:\"Test 2\";i:2;s:6:\"Test 1\";i:3;R:3;i:4;s:6:\"Test 1\";}",
-            Serializer.serialize(test));
+            Pherialize.serialize(test));
     }
 
 
@@ -280,7 +280,7 @@ public class SerializerTest extends TestCase
         persons.add(ford);
 
         assertEquals(
-            "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}", 
-            Serializer.serialize(persons));
+            "a:2:{i:0;a:5:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:43;s:9:\"earthling\";b:1;s:7:\"special\";N;s:7:\"comrade\";a:5:{s:4:\"name\";s:12:\"Ford Prefect\";s:3:\"age\";i:39;s:9:\"earthling\";b:0;s:7:\"special\";N;s:7:\"comrade\";R:2;}}i:1;R:7;}",
+            Pherialize.serialize(persons));
     }
 }

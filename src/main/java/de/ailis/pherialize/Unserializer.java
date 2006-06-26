@@ -63,28 +63,6 @@ public class Unserializer
         this.history = new ArrayList();
     }
 
-
-    /**
-     * Returns the unserialized object of the specified PHP serialize format
-     * string. The returned object is wrapped in a Mixed object allowing easy
-     * conversion to any data type needed. This wrapping is needed because PHP
-     * is a loosely typed language and it is quite propable that a boolean is
-     * sometimes a int or a string. So with the Mixed wrapper object you can
-     * easily decide on your own how to interpret the unserialized data.
-     * 
-     * @param data
-     *            The serialized data
-     * @return The unserialized object
-     */
-
-    public static Mixed unserialize(String data)
-    {
-        Unserializer unserializer;
-
-        unserializer = new Unserializer(data);
-        return unserializer.unserializeObject();
-    }
-
     
     /**
      * Unserializes the next object in the data stream.
@@ -92,7 +70,7 @@ public class Unserializer
      * @return The unserializes object
      */
 
-    private Mixed unserializeObject()
+    public Mixed unserializeObject()
     {
         char type;
         Mixed result;
