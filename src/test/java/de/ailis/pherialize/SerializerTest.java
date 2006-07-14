@@ -235,17 +235,21 @@ public class SerializerTest extends TestCase
     public void testSerializeReference()
     {
         List test;
-        String test2;
+        List test1;
+        List test2;
 
         test = new ArrayList();
-        test2 = "Test 2";
-        test.add("Test 1");
+        test1 = new ArrayList();
+        test2 = new ArrayList();
+        test1.add("Test");
+        test2.add("Test");
+        test.add(test1);
         test.add(test2);
-        test.add(new String("Test 1"));
+        test.add(test1);
         test.add(test2);
-        test.add(new String("Test 1"));
+        test.add(test1);
         assertEquals(
-            "a:5:{i:0;s:6:\"Test 1\";i:1;s:6:\"Test 2\";i:2;s:6:\"Test 1\";i:3;R:3;i:4;s:6:\"Test 1\";}",
+            "a:5:{i:0;a:1:{i:0;s:4:\"Test\";}i:1;a:1:{i:0;s:4:\"Test\";}i:2;R:2;i:3;R:4;i:4;R:2;}",
             Pherialize.serialize(test));
     }
 
@@ -310,5 +314,43 @@ public class SerializerTest extends TestCase
         person = new InheritedPerson("Arthur Dent", 42, true, null);
         assertEquals("O:15:\"inheritedperson\":4:{s:4:\"name\";s:11:\"Arthur Dent\";s:3:\"age\";i:42;s:9:\"earthling\";b:1;s:7:\"special\";N;}",
             Pherialize.serialize(person));
+    }
+    
+    public void testSerializeFileDataArray()
+    {
+        Map f1, f2, m;
+        String s1, s2;
+        
+        f1 = new LinkedHashMap();
+        f1.put("uniqueId", "1:769cf9c69a1e278e");
+        f1.put("source", Integer.valueOf(1));
+        f1.put("id", "769cf9c69a1e278e");
+        f1.put("name", "44057.JPG");
+        f1.put("length", "186118");
+        f1.put("lastModified", "1105351935558");
+        f1.put("width", "578");
+        f1.put("height", "382");
+        f1.put("mimeType", "image/jpeg");
+        f1.put("url", "http://127.0.0.1:10414/769cf9c69a1e278e");
+
+        f2 = new LinkedHashMap();
+        f2.put("uniqueId", "1:1a1fbcbbd9c3de8d");
+        f2.put("source", Integer.valueOf(1));
+        f2.put("id", "1a1fbcbbd9c3de8d");
+        f2.put("name", "testbild.jpg");
+        f2.put("length", "229417");
+        f2.put("lastModified", "1130771289683");
+        f2.put("width", "1600");
+        f2.put("height", "1200");
+        f2.put("mimeType", "image/jpeg");
+        f2.put("url", "http://127.0.0.1:10414/1a1fbcbbd9c3de8d");
+        
+        m = new LinkedHashMap();
+        m.put(Integer.valueOf(0), f1);
+        m.put(Integer.valueOf(1), f2);
+        
+        s1 = "a:2:{i:0;a:10:{s:8:\"uniqueId\";s:18:\"1:769cf9c69a1e278e\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"769cf9c69a1e278e\";s:4:\"name\";s:9:\"44057.JPG\";s:6:\"length\";s:6:\"186118\";s:12:\"lastModified\";s:13:\"1105351935558\";s:5:\"width\";s:3:\"578\";s:6:\"height\";s:3:\"382\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/769cf9c69a1e278e\";}i:1;a:10:{s:8:\"uniqueId\";s:18:\"1:1a1fbcbbd9c3de8d\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"1a1fbcbbd9c3de8d\";s:4:\"name\";s:12:\"testbild.jpg\";s:6:\"length\";s:6:\"229417\";s:12:\"lastModified\";s:13:\"1130771289683\";s:5:\"width\";s:4:\"1600\";s:6:\"height\";s:4:\"1200\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/1a1fbcbbd9c3de8d\";}}";
+        s2 = Pherialize.serialize(m);
+        assertEquals(s1, s2);
     }
 }

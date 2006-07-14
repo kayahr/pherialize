@@ -5,9 +5,17 @@
     <author email="k@ailis.de">Klaus Reimer</author>
   </properties>
   <body>
-    <release version="1.1.0" date="2006-06-26" desc="Minor update">
+    <release version="1.1.0" date="2006-07-12" desc="Minor update">
       <action dev="k" type="add">
         PHP4 compatible serializing support for Serializable objects (Using Reflection API)
+      </action>
+      <action dev="k" type="fix">
+        Corrected reference behaviour. Array/Map keys and all simple Java types 
+        (Number, Boolean, String) are no longer referenced when they appear 
+        multiple times in the data structure which is going to be serialized.
+      </action>
+      <action dev="k" type="add">
+        Added serialization support for Pherialize's own Mixed class.
       </action>
     </release>
     <release version="1.0.0" date="2006-06-26" desc="Initial release">

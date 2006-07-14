@@ -76,10 +76,11 @@ public class Serializer
         return buffer.toString();
     }
 
-
+    
     /**
      * This method is used internally for recursively scanning the object while
-     * serializing.
+     * serializing. It just calls the other serializeObject method defaulting
+     * to allowing references.
      * 
      * @param object
      *            The object to serialize
@@ -89,11 +90,32 @@ public class Serializer
 
     private void serializeObject(Object object, StringBuffer buffer)
     {
+        serializeObject(object, buffer, true);
+    }
+    
+    
+    /**
+     * This method is used internally for recursively scanning the object while
+     * serializing. If references are allowed or not can be specified with the
+     * last parameter. For example Array/Map-Keys are not allowed to be a 
+     * reference. 
+     * 
+     * @param object
+     *            The object to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
+     * @param allowReference
+     *            If reference is allowed for this object
+     */
+
+    private void serializeObject(Object object, StringBuffer buffer,
+        boolean allowReference)
+    {
         if (object == null)
         {
             serializeNull(buffer);
         }
-        else if (serializeReference(object, buffer))
+        else if (allowReference && serializeReference(object, buffer))
         {
             return;
         }
@@ -132,6 +154,11 @@ public class Serializer
         else if (object instanceof Boolean)
         {
             serializeBoolean((Boolean) object, buffer);
+        }
+        else if (object instanceof Mixed)
+        {
+            serializeMixed((Mixed) object, buffer);
+            return;
         }
         else if (object instanceof Collection)
         {
@@ -175,6 +202,15 @@ public class Serializer
         Iterator iterator;
         int index;
         boolean isReference;
+        
+        // Don't allow references for simple types because here PHP and
+        // Java are VERY different and the best way it to simply disallow
+        // References for these types
+        if (object instanceof Number || object instanceof Boolean ||
+            object instanceof String)
+        {
+            return false;
+        }
 
         iterator = this.history.iterator();
         index = 0;
@@ -192,6 +228,22 @@ public class Serializer
             index++;
         }
         return isReference;
+    }
+
+
+    /**
+     * Serializes the specified mixed object and appends it to the serialization
+     * buffer.
+     * 
+     * @param mixed
+     *            The object to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
+     */
+
+    private void serializeMixed(Mixed mixed, StringBuffer buffer)
+    {
+        serializeObject(mixed.getValue(), buffer);
     }
 
 
@@ -348,7 +400,7 @@ public class Serializer
         index = 0;
         while (iterator.hasNext())
         {
-            serializeObject(Integer.valueOf(index), buffer);
+            serializeObject(Integer.valueOf(index), buffer, false);
             this.history.remove(this.history.size() - 1);
             serializeObject(iterator.next(), buffer);
             index++;
@@ -379,7 +431,7 @@ public class Serializer
         while (iterator.hasNext())
         {
             key = iterator.next();
-            serializeObject(key, buffer);
+            serializeObject(key, buffer, false);
             this.history.remove(this.history.size() - 1);
             serializeObject(map.get(key), buffer);
         }
@@ -427,7 +479,7 @@ public class Serializer
                 field = fields[i];
                 if (Modifier.isStatic(field.getModifiers())) continue;
                 if (Modifier.isVolatile(field.getModifiers())) continue;
-                
+
                 try
                 {
                     field.setAccessible(true);
@@ -440,15 +492,15 @@ public class Serializer
                 }
                 catch (SecurityException e)
                 {
-                //  Field is just ignored when this exception is thrown
+                    // Field is just ignored when this exception is thrown
                 }
                 catch (IllegalArgumentException e)
                 {
-                //  Field is just ignored when this exception is thrown
+                    // Field is just ignored when this exception is thrown
                 }
                 catch (IllegalAccessException e)
                 {
-                //  Field is just ignored when this exception is thrown
+                    // Field is just ignored when this exception is thrown
                 }
             }
             c = c.getSuperclass();

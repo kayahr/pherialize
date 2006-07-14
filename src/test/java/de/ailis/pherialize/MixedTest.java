@@ -464,7 +464,7 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toInt());
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
-        assertEquals("{2=true, 0=1, 1=Test}", mixed.toString());
+        assertEquals("{0=1, 1=Test, 2=true}", mixed.toString());
         map = mixed.toArray();
         assertEquals(3, map.size());
         assertEquals(1, ((Mixed) map.get(Integer.valueOf(0))).toInt());

@@ -46,6 +46,8 @@ Types
 *----------------+-----------------------------------------------------+
 | Serializable   | object                                              |
 *----------------+-----------------------------------------------------+
+| Mixed          | Depends on the raw type in the Mixed wrapper        |
+*----------------+-----------------------------------------------------+
 
   And here is a list of performed conversion when you unserialize PHP
   data in Java. But note that you will never get in touch with these

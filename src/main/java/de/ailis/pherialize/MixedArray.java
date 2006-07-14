@@ -24,8 +24,8 @@
 package de.ailis.pherialize;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -36,7 +36,7 @@ import java.util.Map;
  * @version $Revision$
  */
 
-public class MixedArray extends HashMap
+public class MixedArray extends LinkedHashMap
 {
     /** Serial version UID */
     private static final long serialVersionUID = -194078593900457504L;

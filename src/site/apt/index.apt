@@ -37,6 +37,8 @@ What is Pherialize
   
   * Serializable (Through Reflection API)
   
+  * Mixed 
+  
   []
   
   The Unserializer supports the following PHP data types:
