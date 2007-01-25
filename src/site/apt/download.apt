@@ -2,9 +2,7 @@ Download
 
 * Binaries
  
-  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.1.0/pherialize-1.1.0.jar}pherialize-1.1.0.jar}}
-  
-  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.0.0/pherialize-1.0.0.jar}pherialize-1.0.0.jar}}
+  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.1.1/pherialize-1.1.1.jar}pherialize-1.1.1.jar}}
   
   []
   
@@ -14,8 +12,6 @@ Download
   source package for compiling Pherialize yourself then use the 
   {{{source-repository.html}source repository}} instead.
   
-  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.1.0/pherialize-1.1.0-sources.jar}pherialize-1.1.0-sources.jar}}
-  
-  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.0.0/pherialize-1.0.0-sources.jar}pherialize-1.0.0-sources.jar}}
+  * {{{http://www.ailis.de/~k/software/maven2/de/ailis/pherialize/pherialize/1.1.1/pherialize-1.1.1-sources.jar}pherialize-1.1.1-sources.jar}}
     
   []

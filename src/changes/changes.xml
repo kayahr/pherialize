@@ -18,6 +18,14 @@
         Added serialization support for Pherialize's own Mixed class.
       </action>
     </release>
+    <release version="1.1.1" date="2007-01-25" desc="Bugfixes">
+      <action dev="k" type="fix">
+        Added missing array support in Serializer
+      </action>
+      <action dev="k" type="fix">
+        Corrected some JUnit tests which used HashMaps instead of LinkedHashMaps and therefor failed on systems where the hash ordering was different.
+      </action>
+    </release>
     <release version="1.0.0" date="2006-06-26" desc="Initial release">
     </release>
   </body>

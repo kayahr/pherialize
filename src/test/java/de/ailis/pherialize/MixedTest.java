@@ -24,7 +24,7 @@
 package de.ailis.pherialize;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -486,7 +486,7 @@ public class MixedTest extends TestCase
         MixedArray list;
         Map map;
         
-        map = new HashMap();
+        map = new LinkedHashMap();
         map.put(new Mixed(0), new Mixed("Item 1"));
         map.put(new Mixed(1), new Mixed("Item 2"));
         map.put(new Mixed("key3"), new Mixed("Item 3"));
@@ -512,7 +512,7 @@ public class MixedTest extends TestCase
         assertEquals(0, mixed.toInt());
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
-        assertEquals("{key3=Item 3, 0=Item 1, 1=Item 2}", mixed.toString());
+        assertEquals("{0=Item 1, 1=Item 2, key3=Item 3}", mixed.toString());
         assertEquals(map, mixed.toArray());
         list = mixed.toArray();
         assertEquals(3, list.size());

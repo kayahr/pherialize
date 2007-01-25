@@ -160,6 +160,10 @@ public class Serializer
             serializeMixed((Mixed) object, buffer);
             return;
         }
+        else if (object instanceof Object[])
+        {
+            serializeArray((Object[]) object, buffer);
+        }
         else if (object instanceof Collection)
         {
             serializeCollection((Collection) object, buffer);
@@ -409,6 +413,35 @@ public class Serializer
     }
 
 
+    /**
+     * Serializes the specfied array and appends it to the serialization
+     * buffer.
+     * 
+     * @param array
+     *            The array to serialize
+     * @param buffer
+     *            The string buffer to append serialized data to
+     */
+
+    private void serializeArray(Object[] array, StringBuffer buffer)
+    {
+        int max;
+
+        this.history.add(array);
+        buffer.append("a:");
+        max = array.length;
+        buffer.append(max);
+        buffer.append(":{");
+        for (int i = 0; i < max; i++)
+        {
+            serializeObject(Integer.valueOf(i), buffer, false);
+            this.history.remove(this.history.size() - 1);
+            serializeObject(array[i], buffer);
+        }
+        buffer.append('}');
+    }
+
+    
     /**
      * Serializes the specfied map and appends it to the serialization buffer.
      * 

@@ -24,7 +24,6 @@
 package de.ailis.pherialize;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -218,7 +217,7 @@ public class SerializerTest extends TestCase
     {
         Map test;
 
-        test = new HashMap();
+        test = new LinkedHashMap();
         test.put("key1", "Test");
         test.put(Integer.valueOf(1), Integer.valueOf(12345));
         test.put("key2", Boolean.TRUE);
@@ -316,7 +315,12 @@ public class SerializerTest extends TestCase
             Pherialize.serialize(person));
     }
     
-    public void testSerializeFileDataArray()
+    
+    /**
+     * Test serializing file data map
+     */
+    
+    public void testSerializeFileDataMap()
     {
         Map f1, f2, m;
         String s1, s2;
@@ -351,6 +355,27 @@ public class SerializerTest extends TestCase
         
         s1 = "a:2:{i:0;a:10:{s:8:\"uniqueId\";s:18:\"1:769cf9c69a1e278e\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"769cf9c69a1e278e\";s:4:\"name\";s:9:\"44057.JPG\";s:6:\"length\";s:6:\"186118\";s:12:\"lastModified\";s:13:\"1105351935558\";s:5:\"width\";s:3:\"578\";s:6:\"height\";s:3:\"382\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/769cf9c69a1e278e\";}i:1;a:10:{s:8:\"uniqueId\";s:18:\"1:1a1fbcbbd9c3de8d\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"1a1fbcbbd9c3de8d\";s:4:\"name\";s:12:\"testbild.jpg\";s:6:\"length\";s:6:\"229417\";s:12:\"lastModified\";s:13:\"1130771289683\";s:5:\"width\";s:4:\"1600\";s:6:\"height\";s:4:\"1200\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/1a1fbcbbd9c3de8d\";}}";
         s2 = Pherialize.serialize(m);
+        assertEquals(s1, s2);
+    }
+    
+    
+    /**
+     * Test serializing array
+     */
+    
+    public void testSerializeArray()
+    {
+        String[] strings;
+        String s1, s2;
+        
+        strings = new String[3];
+        
+        strings[0] = "String 1";
+        strings[1] = "String 2";
+        strings[2] = "String 3";
+        
+        s1 = "a:3:{i:0;s:8:\"String 1\";i:1;s:8:\"String 2\";i:2;s:8:\"String 3\";}";
+        s2 = Pherialize.serialize(strings);
         assertEquals(s1, s2);
     }
 }
