@@ -31,6 +31,7 @@ import java.util.Map;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import de.ailis.pherialize.test.CustomClass;
 
 
 /**
@@ -376,6 +377,27 @@ public class SerializerTest extends TestCase
         
         s1 = "a:3:{i:0;s:8:\"String 1\";i:1;s:8:\"String 2\";i:2;s:8:\"String 3\";}";
         s2 = Pherialize.serialize(strings);
+        assertEquals(s1, s2);
+    }
+    
+    
+    /**
+     * Test serializing array
+     */
+    
+    public void testSerializeCustomArray()
+    {
+        CustomClass[] array;
+        String s1, s2;
+        
+        array = new CustomClass[3];
+        
+        array[0] = new CustomClass("String 1");
+        array[1] = new CustomClass("String 2");
+        array[2] = new CustomClass("String 3");
+        
+        s1 = "a:3:{i:0;O:11:\"customclass\":1:{s:5:\"value\";s:8:\"String 1\";}i:1;O:11:\"customclass\":1:{s:5:\"value\";s:8:\"String 2\";}i:2;O:11:\"customclass\":1:{s:5:\"value\";s:8:\"String 3\";}}";
+        s2 = Pherialize.serialize(array);
         assertEquals(s1, s2);
     }
 }

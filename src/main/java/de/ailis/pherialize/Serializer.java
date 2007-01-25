@@ -163,6 +163,7 @@ public class Serializer
         else if (object instanceof Object[])
         {
             serializeArray((Object[]) object, buffer);
+            return;
         }
         else if (object instanceof Collection)
         {
