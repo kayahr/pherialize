@@ -496,7 +496,7 @@ public class Serializer
 
         this.history.add(object);
         c = object.getClass();
-        className = c.getSimpleName().toLowerCase();
+        className = c.getSimpleName();
         buffer.append("O:");
         buffer.append(className.length());
         buffer.append(":\"");

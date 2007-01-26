@@ -41,17 +41,23 @@ public class CustomClass implements Serializable
     /** A test value */
     private String value;
 
+    /** Test values */
+    private String[] strings;
+
 
     /**
      * Constructor
      * 
      * @param value
      *            A test value
+     * @param strings
+     *            Test values
      */
 
-    public CustomClass(String value)
+    public CustomClass(String value, String[] strings)
     {
         this.value = value;
+        this.strings = strings;
     }
 
 
@@ -64,5 +70,17 @@ public class CustomClass implements Serializable
     public String getValue()
     {
         return this.value;
+    }
+
+
+    /**
+     * Returns the test values
+     * 
+     * @return The test values
+     */
+
+    public String[] getStrings()
+    {
+        return this.strings;
     }
 }

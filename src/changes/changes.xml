@@ -5,6 +5,17 @@
     <author email="k@ailis.de">Klaus Reimer</author>
   </properties>
   <body>
+    <release version="1.1.1" date="2007-01-25" desc="Bugfixes">
+      <action dev="k" type="fix">
+        Removed lowercasing of class names when serializing objects. PHP4 did it but PHP5 does it no longer so we don't do it, too.
+      </action>
+      <action dev="k" type="fix">
+        Added missing array support in Serializer
+      </action>
+      <action dev="k" type="fix">
+        Corrected some JUnit tests which used HashMaps instead of LinkedHashMaps and therefor failed on systems where the hash ordering was different.
+      </action>
+    </release>
     <release version="1.1.0" date="2006-07-12" desc="Minor update">
       <action dev="k" type="add">
         PHP4 compatible serializing support for Serializable objects (Using Reflection API)
@@ -16,14 +27,6 @@
       </action>
       <action dev="k" type="add">
         Added serialization support for Pherialize's own Mixed class.
-      </action>
-    </release>
-    <release version="1.1.1" date="2007-01-25" desc="Bugfixes">
-      <action dev="k" type="fix">
-        Added missing array support in Serializer
-      </action>
-      <action dev="k" type="fix">
-        Corrected some JUnit tests which used HashMaps instead of LinkedHashMaps and therefor failed on systems where the hash ordering was different.
       </action>
     </release>
     <release version="1.0.0" date="2006-06-26" desc="Initial release">
