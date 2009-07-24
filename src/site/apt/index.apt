@@ -41,6 +41,8 @@ What is Pherialize
   
   * Mixed 
   
+  * Enums (Value used as string)
+  
   []
   
   The Unserializer supports the following PHP data types:
@@ -64,6 +66,6 @@ What is Pherialize
 
 * Latest release
 
-  The latest release of Pherialize is version 1.1.1. You can fetch it in the
+  The latest release of Pherialize is version 1.2.0. You can fetch it in the
   {{{download.html}download}} section. To find out what has been changed take
   a look in the {{{changes-report.html}changelog}}.

@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -45,7 +45,7 @@ import de.ailis.pherialize.exceptions.SerializeException;
 public class Serializer
 {
     /** The object history for resolving references */
-    private List history;
+    private final List<Object> history;
 
 
     /**
@@ -55,7 +55,7 @@ public class Serializer
     public Serializer()
     {
         super();
-        this.history = new ArrayList();
+        this.history = new ArrayList<Object>();
     }
 
 
@@ -67,7 +67,7 @@ public class Serializer
      * @return The serialized data
      */
 
-    public String serialize(Object object)
+    public String serialize(final Object object)
     {
         StringBuffer buffer;
 
@@ -88,7 +88,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeObject(Object object, StringBuffer buffer)
+    private void serializeObject(final Object object, final StringBuffer buffer)
     {
         serializeObject(object, buffer, true);
     }
@@ -108,8 +108,8 @@ public class Serializer
      *            If reference is allowed for this object
      */
 
-    private void serializeObject(Object object, StringBuffer buffer,
-        boolean allowReference)
+    private void serializeObject(final Object object, final StringBuffer buffer,
+        final boolean allowReference)
     {
         if (object == null)
         {
@@ -165,14 +165,14 @@ public class Serializer
             serializeArray((Object[]) object, buffer);
             return;
         }
-        else if (object instanceof Collection)
+        else if (object instanceof Collection<?>)
         {
-            serializeCollection((Collection) object, buffer);
+            serializeCollection((Collection<?>) object, buffer);
             return;
         }
-        else if (object instanceof Map)
+        else if (object instanceof Map<?, ?>)
         {
-            serializeMap((Map) object, buffer);
+            serializeMap((Map<?, ?>) object, buffer);
             return;
         }
         else if (object instanceof Serializable)
@@ -202,9 +202,9 @@ public class Serializer
      * @return If a reference was serialized or not
      */
 
-    private boolean serializeReference(Object object, StringBuffer buffer)
+    private boolean serializeReference(final Object object, final StringBuffer buffer)
     {
-        Iterator iterator;
+        Iterator<?> iterator;
         int index;
         boolean isReference;
         
@@ -246,7 +246,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeMixed(Mixed mixed, StringBuffer buffer)
+    private void serializeMixed(final Mixed mixed, final StringBuffer buffer)
     {
         serializeObject(mixed.getValue(), buffer);
     }
@@ -262,7 +262,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeString(String string, StringBuffer buffer)
+    private void serializeString(final String string, final StringBuffer buffer)
     {
         buffer.append("s:");
         buffer.append(string.length());
@@ -282,7 +282,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeCharacter(Character value, StringBuffer buffer)
+    private void serializeCharacter(final Character value, final StringBuffer buffer)
     {
         buffer.append("s:1:\"");
         buffer.append(value);
@@ -297,7 +297,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeNull(StringBuffer buffer)
+    private void serializeNull(final StringBuffer buffer)
     {
         buffer.append("N;");
     }
@@ -313,7 +313,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeInteger(int number, StringBuffer buffer)
+    private void serializeInteger(final int number, final StringBuffer buffer)
     {
         buffer.append("i:");
         buffer.append(number);
@@ -331,7 +331,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeLong(long number, StringBuffer buffer)
+    private void serializeLong(final long number, final StringBuffer buffer)
     {
         if ((number >= Integer.MIN_VALUE) && (number <= Integer.MAX_VALUE))
         {
@@ -356,7 +356,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeDouble(double number, StringBuffer buffer)
+    private void serializeDouble(final double number, final StringBuffer buffer)
     {
         buffer.append("d:");
         buffer.append(number);
@@ -374,7 +374,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeBoolean(Boolean value, StringBuffer buffer)
+    private void serializeBoolean(final Boolean value, final StringBuffer buffer)
     {
         buffer.append("b:");
         buffer.append(value.booleanValue() ? 1 : 0);
@@ -392,9 +392,9 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeCollection(Collection collection, StringBuffer buffer)
+    private void serializeCollection(final Collection<?> collection, final StringBuffer buffer)
     {
-        Iterator iterator;
+        Iterator<?> iterator;
         int index;
 
         this.history.add(collection);
@@ -424,7 +424,7 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeArray(Object[] array, StringBuffer buffer)
+    private void serializeArray(final Object[] array, final StringBuffer buffer)
     {
         int max;
 
@@ -452,9 +452,9 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeMap(Map map, StringBuffer buffer)
+    private void serializeMap(final Map<?, ?> map, final StringBuffer buffer)
     {
-        Iterator iterator;
+        Iterator<?> iterator;
         Object key;
 
         this.history.add(map);
@@ -482,10 +482,10 @@ public class Serializer
      *            The string buffer to append serialized data to
      */
 
-    private void serializeSerializable(Serializable object, StringBuffer buffer)
+    private void serializeSerializable(final Serializable object, final StringBuffer buffer)
     {
         String className;
-        Class c;
+        Class<?> c;
         Field[] fields;
         int i, max;
         Field field;
@@ -524,15 +524,15 @@ public class Serializer
                     serializeObject(value, fieldBuffer);
                     fieldCount++;
                 }
-                catch (SecurityException e)
+                catch (final SecurityException e)
                 {
                     // Field is just ignored when this exception is thrown
                 }
-                catch (IllegalArgumentException e)
+                catch (final IllegalArgumentException e)
                 {
                     // Field is just ignored when this exception is thrown
                 }
-                catch (IllegalAccessException e)
+                catch (final IllegalAccessException e)
                 {
                     // Field is just ignored when this exception is thrown
                 }

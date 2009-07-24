@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -54,7 +54,7 @@ abstract public class PherializeException extends RuntimeException
      *            The exception message
      */
 
-    public PherializeException(String message)
+    public PherializeException(final String message)
     {
         super(message);
     }
@@ -69,7 +69,7 @@ abstract public class PherializeException extends RuntimeException
      *            The root cause
      */
 
-    public PherializeException(String message, Throwable cause)
+    public PherializeException(final String message, final Throwable cause)
     {
         super(message, cause);
     }
@@ -82,7 +82,7 @@ abstract public class PherializeException extends RuntimeException
      *            The root cause
      */
 
-    public PherializeException(Throwable cause)
+    public PherializeException(final Throwable cause)
     {
         super(cause);
     }

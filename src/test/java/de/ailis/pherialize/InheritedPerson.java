@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,7 +23,6 @@
 
 package de.ailis.pherialize;
 
-import java.io.Serializable;
 
 
 /**
@@ -33,7 +32,7 @@ import java.io.Serializable;
  * @version $Revision$
  */
 
-public class InheritedPerson extends Person implements Serializable
+public class InheritedPerson extends Person
 {
     /** Serial version UID */
     private static final long serialVersionUID = -3282108166577595725L;
@@ -52,7 +51,7 @@ public class InheritedPerson extends Person implements Serializable
      *            Special stuff
      */
 
-    public InheritedPerson(String name, int age, boolean earthling, Object special)
+    public InheritedPerson(final String name, final int age, final boolean earthling, final Object special)
     {
         super(name, age, earthling, special);
     }

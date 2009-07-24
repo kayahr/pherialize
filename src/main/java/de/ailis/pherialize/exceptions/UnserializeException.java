@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -55,7 +55,7 @@ public class UnserializeException extends PherializeException
      *            The exception message
      */
 
-    public UnserializeException(String message)
+    public UnserializeException(final String message)
     {
         super(message);
     }
@@ -70,7 +70,7 @@ public class UnserializeException extends PherializeException
      *            The root cause
      */
 
-    public UnserializeException(String message, Throwable cause)
+    public UnserializeException(final String message, final Throwable cause)
     {
         super(message, cause);
     }
@@ -83,7 +83,7 @@ public class UnserializeException extends PherializeException
      *            The root cause
      */
 
-    public UnserializeException(Throwable cause)
+    public UnserializeException(final Throwable cause)
     {
         super(cause);
     }

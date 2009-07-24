@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -36,7 +36,7 @@ import java.util.Map;
  * @version $Revision$
  */
 
-public class MixedArray extends LinkedHashMap
+public class MixedArray extends LinkedHashMap<Object, Object>
 {
     /** Serial version UID */
     private static final long serialVersionUID = -194078593900457504L;
@@ -51,7 +51,7 @@ public class MixedArray extends LinkedHashMap
      *            The load factor
      */
 
-    public MixedArray(int initialCapacity, float loadFactor)
+    public MixedArray(final int initialCapacity, final float loadFactor)
     {
         super(initialCapacity, loadFactor);
     }
@@ -64,7 +64,7 @@ public class MixedArray extends LinkedHashMap
      *            The initial capacity
      */
 
-    public MixedArray(int initialCapacity)
+    public MixedArray(final int initialCapacity)
     {
         super(initialCapacity);
     }
@@ -87,7 +87,7 @@ public class MixedArray extends LinkedHashMap
      *            The map to copy
      */
 
-    public MixedArray(Map map)
+    public MixedArray(final Map<?, ?> map)
     {
         super(map);
     }
@@ -100,12 +100,12 @@ public class MixedArray extends LinkedHashMap
      *            The list to copy
      */
 
-    public MixedArray(Collection list)
+    public MixedArray(final Collection<?> list)
     {
         super();
 
         int i;
-        Iterator iterator;
+        Iterator<?> iterator;
 
         i = 0;
         iterator = list.iterator();
@@ -121,7 +121,8 @@ public class MixedArray extends LinkedHashMap
      * @see java.util.HashMap#get(java.lang.Object)
      */
 
-    public Object get(Object key)
+    @Override
+    public Object get(final Object key)
     {
         if (key instanceof Mixed)
         {
@@ -142,7 +143,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public Mixed getMixed(Object key)
+    public Mixed getMixed(final Object key)
     {
         return (Mixed) get(key);
     }
@@ -156,7 +157,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public String getString(Object key)
+    public String getString(final Object key)
     {
         return getMixed(key).toString();
     }
@@ -170,7 +171,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public boolean getBooolean(Object key)
+    public boolean getBooolean(final Object key)
     {
         return getMixed(key).toBoolean();
     }
@@ -184,7 +185,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public byte getByte(Object key)
+    public byte getByte(final Object key)
     {
         return getMixed(key).toByte();
     }
@@ -198,7 +199,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public char getChar(Object key)
+    public char getChar(final Object key)
     {
         return getMixed(key).toChar();
     }
@@ -212,7 +213,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public double getDouble(Object key)
+    public double getDouble(final Object key)
     {
         return getMixed(key).toDouble();
     }
@@ -226,7 +227,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public float getFloat(Object key)
+    public float getFloat(final Object key)
     {
         return getMixed(key).toFloat();
     }
@@ -240,7 +241,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public int getInt(Object key)
+    public int getInt(final Object key)
     {
         return getMixed(key).toInt();
     }
@@ -254,7 +255,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public boolean getBoolean(Object key)
+    public boolean getBoolean(final Object key)
     {
         return getMixed(key).toBoolean();
     }
@@ -268,7 +269,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public MixedArray getArray(Object key)
+    public MixedArray getArray(final Object key)
     {
         return getMixed(key).toArray();
     }
@@ -282,7 +283,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public long getLong(Object key)
+    public long getLong(final Object key)
     {
         return getMixed(key).toLong();
     }
@@ -296,7 +297,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public short getShort(Object key)
+    public short getShort(final Object key)
     {
         return getMixed(key).toShort();
     }
@@ -312,7 +313,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public Object getType(Object key, int type)
+    public Object getType(final Object key, final int type)
     {
         return getMixed(key).toType(type);
     }
@@ -322,17 +323,20 @@ public class MixedArray extends LinkedHashMap
      * @see java.util.HashMap#put(java.lang.Object, java.lang.Object)
      */
 
-    public Object put(Object key, Object value)
+    @Override
+    public Object put(final Object key, final Object value)
     {
+        Mixed mixedKey, mixedValue;
+        
         if (!(key instanceof Mixed))
-        {
-            key = new Mixed(key);
-        }
+            mixedKey = new Mixed(key);
+        else
+            mixedKey = (Mixed) key;
         if (!(value instanceof Mixed))
-        {
-            value = new Mixed(value);
-        }
-        return super.put(key, value);
+            mixedValue = new Mixed(value);
+        else
+            mixedValue = (Mixed) value;
+        return super.put(mixedKey, mixedValue);
     }
 
 
@@ -340,7 +344,8 @@ public class MixedArray extends LinkedHashMap
      * @see java.util.HashMap#containsKey(java.lang.Object)
      */
 
-    public boolean containsKey(Object key)
+    @Override
+    public boolean containsKey(final Object key)
     {
         if (key instanceof Mixed)
         {
@@ -357,7 +362,8 @@ public class MixedArray extends LinkedHashMap
      * @see java.util.HashMap#containsValue(java.lang.Object)
      */
 
-    public boolean containsValue(Object value)
+    @Override
+    public boolean containsValue(final Object value)
     {
         if (value instanceof Mixed)
         {
@@ -378,7 +384,7 @@ public class MixedArray extends LinkedHashMap
      * @return If value exists or not
      */
 
-    public boolean contains(Object value)
+    public boolean contains(final Object value)
     {
         return containsValue(value);
     }
@@ -388,7 +394,8 @@ public class MixedArray extends LinkedHashMap
      * @see java.util.HashMap#remove(java.lang.Object)
      */
 
-    public Object remove(Object key)
+    @Override
+    public Object remove(final Object key)
     {
         if (key instanceof Mixed)
         {
@@ -409,7 +416,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public Object get(int index)
+    public Object get(final int index)
     {
         return get(new Mixed(index));
     }
@@ -423,7 +430,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public Mixed getMixed(int index)
+    public Mixed getMixed(final int index)
     {
         return (Mixed) get(index);
     }
@@ -437,7 +444,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public String getString(int index)
+    public String getString(final int index)
     {
         return getMixed(index).toString();
     }
@@ -451,7 +458,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public boolean getBooolean(int index)
+    public boolean getBooolean(final int index)
     {
         return getMixed(index).toBoolean();
     }
@@ -465,7 +472,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public byte getByte(int index)
+    public byte getByte(final int index)
     {
         return getMixed(index).toByte();
     }
@@ -479,7 +486,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public char getChar(int index)
+    public char getChar(final int index)
     {
         return getMixed(index).toChar();
     }
@@ -493,7 +500,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public double getDouble(int index)
+    public double getDouble(final int index)
     {
         return getMixed(index).toDouble();
     }
@@ -507,7 +514,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public float getFloat(int index)
+    public float getFloat(final int index)
     {
         return getMixed(index).toFloat();
     }
@@ -521,7 +528,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public int getInt(int index)
+    public int getInt(final int index)
     {
         return getMixed(index).toInt();
     }
@@ -535,7 +542,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public boolean getBoolean(int index)
+    public boolean getBoolean(final int index)
     {
         return getMixed(index).toBoolean();
     }
@@ -549,7 +556,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public MixedArray getArray(int index)
+    public MixedArray getArray(final int index)
     {
         return getMixed(index).toArray();
     }
@@ -563,7 +570,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public long getLong(int index)
+    public long getLong(final int index)
     {
         return getMixed(index).toLong();
     }
@@ -577,7 +584,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public short getShort(int index)
+    public short getShort(final int index)
     {
         return getMixed(index).toShort();
     }
@@ -593,7 +600,7 @@ public class MixedArray extends LinkedHashMap
      * @return The value
      */
 
-    public Object getType(int index, int type)
+    public Object getType(final int index, final int type)
     {
         return getMixed(index).toType(type);
     }

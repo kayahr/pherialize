@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (c) 2006 Klaus Reimer
+ * Copyright (c) 2009 Klaus Reimer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy 
  * of this software and associated documentation files (the "Software"), to 
@@ -31,6 +31,7 @@ import java.util.Map;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import de.ailis.pherialize.test.EnumClass;
 
 
 /**
@@ -78,8 +79,8 @@ public class MixedTest extends TestCase
         assertEquals(true, mixed.toBoolean());
         assertEquals(0, mixed.toByte());
         assertEquals('T', mixed.toChar());
-        assertEquals(0, mixed.toDouble(), 0);
-        assertEquals(0, mixed.toFloat(), 0);
+        assertEquals(0, mixed.toDouble(), 0.01);
+        assertEquals(0, mixed.toFloat(), 0.01);
         assertEquals(0, mixed.toInt());
         assertEquals(0, mixed.toLong());
         assertEquals(0, mixed.toShort());
@@ -435,10 +436,10 @@ public class MixedTest extends TestCase
     public void testArray()
     {
         Mixed mixed;        
-        List list;
+        List<Object> list;
         MixedArray map;
         
-        list = new ArrayList();
+        list = new ArrayList<Object>();
         list.add(new Mixed(1));
         list.add(new Mixed("Test"));
         list.add(new Mixed(Boolean.TRUE));
@@ -457,13 +458,13 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isString());
         assertTrue(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
-        assertEquals(0, mixed.toByte());
-        assertEquals('{', mixed.toChar());
-        assertEquals(0, mixed.toDouble(), 0);
-        assertEquals(0, mixed.toFloat(), 0);
-        assertEquals(0, mixed.toInt());
-        assertEquals(0, mixed.toLong());
-        assertEquals(0, mixed.toShort());
+        assertEquals(1, mixed.toChar());
+        assertEquals(1, mixed.toByte());
+        assertEquals(1, mixed.toDouble(), 0.01);
+        assertEquals(1, mixed.toFloat(), 0.01);
+        assertEquals(1, mixed.toInt());
+        assertEquals(1, mixed.toLong());
+        assertEquals(1, mixed.toShort());
         assertEquals("{0=1, 1=Test, 2=true}", mixed.toString());
         map = mixed.toArray();
         assertEquals(3, map.size());
@@ -473,6 +474,16 @@ public class MixedTest extends TestCase
         assertEquals(new Mixed(1), map.get(Integer.valueOf(0)));
         assertEquals(new Mixed("Test"), map.get(Integer.valueOf(1)));
         assertEquals(new Mixed(true), map.get(Integer.valueOf(2)));
+
+        // Check "toInt" for empty array
+        mixed = new Mixed(new ArrayList<Object>(0));
+        assertEquals(0, mixed.toChar());
+        assertEquals(0, mixed.toByte());
+        assertEquals(0, mixed.toDouble(), 0.01);
+        assertEquals(0, mixed.toFloat(), 0.01);
+        assertEquals(0, mixed.toInt());
+        assertEquals(0, mixed.toLong());
+        assertEquals(0, mixed.toShort());
     }
     
     
@@ -484,9 +495,9 @@ public class MixedTest extends TestCase
     {
         Mixed mixed;        
         MixedArray list;
-        Map map;
+        Map<Object, Object> map;
         
-        map = new LinkedHashMap();
+        map = new LinkedHashMap<Object, Object>();
         map.put(new Mixed(0), new Mixed("Item 1"));
         map.put(new Mixed(1), new Mixed("Item 2"));
         map.put(new Mixed("key3"), new Mixed("Item 3"));
@@ -505,13 +516,13 @@ public class MixedTest extends TestCase
         assertFalse(mixed.isString());
         assertTrue(mixed.isArray());
         assertEquals(true, mixed.toBoolean());
-        assertEquals(0, mixed.toByte());
-        assertEquals('{', mixed.toChar());
-        assertEquals(0, mixed.toDouble(), 0);
-        assertEquals(0, mixed.toFloat(), 0);
-        assertEquals(0, mixed.toInt());
-        assertEquals(0, mixed.toLong());
-        assertEquals(0, mixed.toShort());
+        assertEquals(1, mixed.toChar());
+        assertEquals(1, mixed.toByte());
+        assertEquals(1, mixed.toDouble(), 0.01);
+        assertEquals(1, mixed.toFloat(), 0.01);
+        assertEquals(1, mixed.toInt());
+        assertEquals(1, mixed.toLong());
+        assertEquals(1, mixed.toShort());
         assertEquals("{0=Item 1, 1=Item 2, key3=Item 3}", mixed.toString());
         assertEquals(map, mixed.toArray());
         list = mixed.toArray();
@@ -519,6 +530,16 @@ public class MixedTest extends TestCase
         assertTrue(list.contains(new Mixed("Item 1")));
         assertTrue(list.contains(new Mixed("Item 2")));
         assertTrue(list.contains(new Mixed("Item 3")));
+
+        // Check "toInt" for empty map
+        mixed = new Mixed(new LinkedHashMap<Object, Object>(0));
+        assertEquals(0, mixed.toChar());
+        assertEquals(0, mixed.toByte());
+        assertEquals(0, mixed.toDouble(), 0.01);
+        assertEquals(0, mixed.toFloat(), 0.01);
+        assertEquals(0, mixed.toInt());
+        assertEquals(0, mixed.toLong());
+        assertEquals(0, mixed.toShort());
     }
     
     
@@ -536,5 +557,40 @@ public class MixedTest extends TestCase
         assertTrue(new Mixed("1").equals(new Mixed(new Integer(1))));
         assertFalse(new Mixed("1").equals(new Integer(2)));
         assertTrue(new Mixed("1").equals(new Integer(1)));
+    }
+
+
+    /**
+     * Tests a ennum as a mixed value.
+     */
+
+    public void testEnum()
+    {
+        Mixed mixed;
+        
+        mixed = new Mixed(EnumClass.BLUE);
+        System.out.println(Pherialize.serialize(mixed));
+        assertEquals(Mixed.TYPE_STRING, mixed.getType());
+        assertFalse(mixed.isBoolean());
+        assertFalse(mixed.isByte());
+        assertFalse(mixed.isChar());
+        assertFalse(mixed.isDouble());
+        assertFalse(mixed.isFloat());
+        assertFalse(mixed.isInt());
+        assertFalse(mixed.isLong());
+        assertFalse(mixed.isShort());
+        assertFalse(mixed.isNumber());
+        assertTrue(mixed.isString());
+        assertFalse(mixed.isArray());
+        assertEquals(true, mixed.toBoolean());
+        assertEquals(0, mixed.toByte());
+        assertEquals('B', mixed.toChar());
+        assertEquals(0, mixed.toDouble(), 0);
+        assertEquals(0, mixed.toFloat(), 0);
+        assertEquals(0, mixed.toInt());
+        assertEquals(0, mixed.toLong());
+        assertEquals(0, mixed.toShort());
+        assertEquals("BLUE", mixed.toString());
+        assertNull(mixed.toArray());
     }
 }

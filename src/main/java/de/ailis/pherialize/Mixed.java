@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -38,7 +38,7 @@ import java.util.Map;
  * @version $Revision$
  */
 
-public class Mixed implements Serializable, Comparable
+public class Mixed implements Serializable, Comparable<Object>
 {
     /** Serial version UID */
     private static final long serialVersionUID = -599069055376420973L;
@@ -80,7 +80,7 @@ public class Mixed implements Serializable, Comparable
     private Object value;
 
     /** The data type */
-    private int type;
+    private final int type;
 
 
     /**
@@ -90,28 +90,32 @@ public class Mixed implements Serializable, Comparable
      *            The real value
      */
 
-    public Mixed(Object value)
+    public Mixed(final Object value)
     {
         super();
-        this.type = Mixed.getTypeOf(value);        
+        this.type = Mixed.getTypeOf(value);
         switch (this.type)
         {
+            case TYPE_STRING:
+                this.value = value.toString();
+                break;
+
             case TYPE_ARRAY:
                 if (value instanceof MixedArray)
                 {
                     this.value = value;
                 }
-                else if (value instanceof List)
+                else if (value instanceof List<?>)
                 {
-                    this.value = new MixedArray((List) value);
+                    this.value = new MixedArray((List<?>) value);
                 }
                 else
                 {
-                    this.value = new MixedArray((Map) value);
+                    this.value = new MixedArray((Map<?, ?>) value);
                 }
                 break;
-                
-            default:                
+
+            default:
                 this.value = value;
         }
     }
@@ -124,7 +128,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(char value)
+    public Mixed(final char value)
     {
         super();
         this.value = Character.valueOf(value);
@@ -139,7 +143,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(byte value)
+    public Mixed(final byte value)
     {
         super();
         this.value = Byte.valueOf(value);
@@ -154,7 +158,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(short value)
+    public Mixed(final short value)
     {
         super();
         this.value = Short.valueOf(value);
@@ -169,7 +173,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(int value)
+    public Mixed(final int value)
     {
         super();
         this.value = Integer.valueOf(value);
@@ -184,7 +188,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(long value)
+    public Mixed(final long value)
     {
         super();
         this.value = Long.valueOf(value);
@@ -199,7 +203,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(float value)
+    public Mixed(final float value)
     {
         super();
         this.value = Float.valueOf(value);
@@ -214,7 +218,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(double value)
+    public Mixed(final double value)
     {
         super();
         this.value = Double.valueOf(value);
@@ -229,7 +233,7 @@ public class Mixed implements Serializable, Comparable
      *            The mixed value
      */
 
-    public Mixed(boolean value)
+    public Mixed(final boolean value)
     {
         this.value = Boolean.valueOf(value);
         this.type = TYPE_BOOLEAN;
@@ -244,9 +248,10 @@ public class Mixed implements Serializable, Comparable
      * @return The type
      */
 
-    public static int getTypeOf(Object value)
+    public static int getTypeOf(final Object value)
     {
-        if (value instanceof String)
+        if (value instanceof String
+            || (value != null && value.getClass().isEnum()))
         {
             return TYPE_STRING;
         }
@@ -254,11 +259,11 @@ public class Mixed implements Serializable, Comparable
         {
             return TYPE_INT;
         }
-        else if (value instanceof List)
+        else if (value instanceof List<?>)
         {
             return TYPE_ARRAY;
         }
-        else if (value instanceof Map)
+        else if (value instanceof Map<?, ?>)
         {
             return TYPE_ARRAY;
         }
@@ -303,6 +308,7 @@ public class Mixed implements Serializable, Comparable
      * @see java.lang.Object#hashCode()
      */
 
+    @Override
     public int hashCode()
     {
         return toString().hashCode();
@@ -313,7 +319,8 @@ public class Mixed implements Serializable, Comparable
      * @see java.lang.Object#equals(java.lang.Object)
      */
 
-    public boolean equals(Object other)
+    @Override
+    public boolean equals(final Object other)
     {
         if (other == null) return false;
         if (other instanceof Mixed)
@@ -331,6 +338,7 @@ public class Mixed implements Serializable, Comparable
      * @see java.lang.Object#toString()
      */
 
+    @Override
     public String toString()
     {
         if (this.value == null) return null;
@@ -346,7 +354,7 @@ public class Mixed implements Serializable, Comparable
      * @return The converted type
      */
 
-    public Object toType(int type)
+    public Object toType(final int type)
     {
         // Return the value right away if it's already the correct type
         if (this.type == type) return this.value;
@@ -390,6 +398,8 @@ public class Mixed implements Serializable, Comparable
     public char toChar()
     {
         if (this.value == null) return 0;
+        if (isArray())
+            return (char) (((MixedArray) this.value).size() == 0 ? 0 : 1);
         if (toString().length() > 0)
         {
             return toString().charAt(0);
@@ -410,11 +420,13 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? (short) 1 : (short) 0;
+        if (isArray())
+            return (short) (((MixedArray) this.value).size() == 0 ? 0 : 1);
         try
         {
             return (short) toLong();
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -433,11 +445,13 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? (byte) 1 : (byte) 0;
+        if (isArray())
+            return (byte) (((MixedArray) this.value).size() == 0 ? 0 : 1);
         try
         {
             return (byte) toLong();
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -456,11 +470,12 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
+        if (isArray()) return ((MixedArray) this.value).size() == 0 ? 0 : 1;
         try
         {
             return (int) toLong();
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -479,11 +494,12 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
+        if (isArray()) return ((MixedArray) this.value).size() == 0 ? 0 : 1;
         try
         {
             return (long) toDouble();
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -502,11 +518,12 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
+        if (isArray()) return ((MixedArray) this.value).size() == 0 ? 0 : 1;
         try
         {
             return Float.parseFloat(this.value.toString());
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -532,8 +549,8 @@ public class Mixed implements Serializable, Comparable
             return null;
         }
     }
-    
-    
+
+
     /**
      * Returns mixed value as a double. If value is a boolean value then 0 is
      * returned if value is false and 1 is returned if value is true. For any
@@ -546,11 +563,12 @@ public class Mixed implements Serializable, Comparable
     {
         if (this.value == null) return 0;
         if (isBoolean()) return toBoolean() ? 1 : 0;
+        if (isArray()) return ((MixedArray) this.value).size() == 0 ? 0 : 1;
         try
         {
             return Double.parseDouble(this.value.toString());
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             return 0;
         }
@@ -597,15 +615,17 @@ public class Mixed implements Serializable, Comparable
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
 
-    public int compareTo(Object other)
+    @SuppressWarnings("unchecked")
+    public int compareTo(final Object other)
     {
         if (other instanceof Mixed)
         {
-            return ((Comparable) this.value).compareTo(((Mixed) other).value);
+            return ((Comparable<Object>) this.value)
+                .compareTo(((Mixed) other).value);
         }
         else
         {
-            return ((Comparable) this.value).compareTo(other);
+            return ((Comparable<Object>) this.value).compareTo(other);
         }
     }
 

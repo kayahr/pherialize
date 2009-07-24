@@ -5,6 +5,16 @@
     <author email="k@ailis.de">Klaus Reimer</author>
   </properties>
   <body>
+    <release version="1.2.0" date="2009-07-24" desc="Minor update">
+      <action dev="k" type="fix">
+        Converting an array/map into a number now returns 0 for empty
+        arrays/maps and 1 for non-empty arrays/maps.
+      </action>
+      <action dev="k" type="add">
+        Switched to Java 5 for enum support. enums are now treated as strings
+        and no longer as objects. 
+      </action>
+    </release>
     <release version="1.1.1" date="2007-01-25" desc="Bugfixes">
       <action dev="k" type="fix">
         Removed lowercasing of class names when serializing objects. PHP4 did it but PHP5 does it no longer so we don't do it, too.

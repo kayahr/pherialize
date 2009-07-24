@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (c) 2006 Klaus Reimer
+ * Copyright (c) 2009 Klaus Reimer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy 
  * of this software and associated documentation files (the "Software"), to 
@@ -40,13 +40,14 @@ import junit.framework.TestSuite;
 public class MixedArrayTest extends TestCase
 {
     /** The test map */
-    private Map map;
+    private Map<Object, Object> map;
     
     
     /**
      * @see junit.framework.TestCase#setUp()
      */
     
+    @Override
     public void setUp()
     {
         this.map = new MixedArray();

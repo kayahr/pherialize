@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -64,7 +64,7 @@ public class Person implements Serializable
      *            Special stuff
      */
 
-    public Person(String name, int age, boolean earthling, Object special)
+    public Person(final String name, final int age, final boolean earthling, final Object special)
     {
         super();
         this.name = name;
@@ -93,7 +93,7 @@ public class Person implements Serializable
      *            The age to set
      */
 
-    public void setAge(int age)
+    public void setAge(final int age)
     {
         this.age = age;
     }
@@ -118,7 +118,7 @@ public class Person implements Serializable
      *            The earthling state to set
      */
 
-    public void setEarthling(boolean earthling)
+    public void setEarthling(final boolean earthling)
     {
         this.earthling = earthling;
     }
@@ -143,7 +143,7 @@ public class Person implements Serializable
      *            The name to set
      */
 
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -168,7 +168,7 @@ public class Person implements Serializable
      *            The special stuff to set
      */
 
-    public void setSpecial(Object special)
+    public void setSpecial(final Object special)
     {
         this.special = special;
     }

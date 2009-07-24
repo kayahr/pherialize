@@ -23,64 +23,22 @@
 
 package de.ailis.pherialize.test;
 
-import java.io.Serializable;
-
 
 /**
- * CustomClass
- * 
+ * A test enum
+ *
  * @author Klaus Reimer (k@ailis.de)
  * @version $Revision$
  */
 
-public class CustomClass implements Serializable
+public enum EnumClass
 {
-    /** Serial version UID */
-    private static final long serialVersionUID = -7396948063312053556L;
-
-    /** A test value */
-    private final String value;
-
-    /** Test values */
-    private final String[] strings;
-
-
-    /**
-     * Constructor
-     * 
-     * @param value
-     *            A test value
-     * @param strings
-     *            Test values
-     */
-
-    public CustomClass(final String value, final String[] strings)
-    {
-        this.value = value;
-        this.strings = strings;
-    }
-
-
-    /**
-     * Returns the test value
-     * 
-     * @return The test value
-     */
-
-    public String getValue()
-    {
-        return this.value;
-    }
-
-
-    /**
-     * Returns the test values
-     * 
-     * @return The test values
-     */
-
-    public String[] getStrings()
-    {
-        return this.strings;
-    }
+    /** Red color */
+    RED,
+    
+    /** Green color */
+    GREEN,
+    
+    /** Blue color */
+    BLUE
 }

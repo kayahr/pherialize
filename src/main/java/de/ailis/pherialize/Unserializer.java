@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -42,10 +42,10 @@ public class Unserializer
     private int pos;
 
     /** The data to unserialize */
-    private String data;
+    private final String data;
 
     /** The object history for resolving references */
-    private List history;
+    private final List<Object> history;
 
 
     /**
@@ -55,12 +55,12 @@ public class Unserializer
      *            The data to unserialize
      */
 
-    public Unserializer(String data)
+    public Unserializer(final String data)
     {
         super();
         this.data = data;
         this.pos = 0;
-        this.history = new ArrayList();
+        this.history = new ArrayList<Object>();
     }
 
     

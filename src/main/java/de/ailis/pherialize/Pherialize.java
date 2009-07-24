@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (C) 2006 Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -53,7 +53,7 @@ public class Pherialize
      * @return The serialized representation of the object
      */
 
-    public static String serialize(Object object)
+    public static String serialize(final Object object)
     {
         Serializer pherialize;
 
@@ -75,7 +75,7 @@ public class Pherialize
      * @return The unserialized object
      */
 
-    public static Mixed unserialize(String data)
+    public static Mixed unserialize(final String data)
     {
         Unserializer unserializer;
 

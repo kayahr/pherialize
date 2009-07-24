@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Copyright (c) 2006 Klaus Reimer
+ * Copyright (c) 2009 Klaus Reimer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy 
  * of this software and associated documentation files (the "Software"), to 
@@ -199,9 +199,9 @@ public class SerializerTest extends TestCase
 
     public void testSerializeCollection()
     {
-        List test;
+        List<Object> test;
 
-        test = new ArrayList();
+        test = new ArrayList<Object>();
         test.add("Test");
         test.add(Integer.valueOf(12345));
         test.add(Boolean.TRUE);
@@ -216,9 +216,9 @@ public class SerializerTest extends TestCase
 
     public void testSerializeMap()
     {
-        Map test;
+        Map<Object, Object> test;
 
-        test = new LinkedHashMap();
+        test = new LinkedHashMap<Object, Object>();
         test.put("key1", "Test");
         test.put(Integer.valueOf(1), Integer.valueOf(12345));
         test.put("key2", Boolean.TRUE);
@@ -234,13 +234,13 @@ public class SerializerTest extends TestCase
 
     public void testSerializeReference()
     {
-        List test;
-        List test1;
-        List test2;
+        List<Object> test;
+        List<Object> test1;
+        List<Object> test2;
 
-        test = new ArrayList();
-        test1 = new ArrayList();
-        test2 = new ArrayList();
+        test = new ArrayList<Object>();
+        test1 = new ArrayList<Object>();
+        test2 = new ArrayList<Object>();
         test1.add("Test");
         test2.add("Test");
         test.add(test1);
@@ -260,18 +260,18 @@ public class SerializerTest extends TestCase
 
     public void testComplex()
     {
-        Map arthur, ford;
-        List persons;
+        Map<Object, Object> arthur, ford;
+        List<Object> persons;
 
-        persons = new ArrayList();
+        persons = new ArrayList<Object>();
 
-        arthur = new LinkedHashMap();
+        arthur = new LinkedHashMap<Object, Object>();
         arthur.put("name", "Arthur Dent");
         arthur.put("age", Integer.valueOf(43));
         arthur.put("earthling", Boolean.TRUE);
         arthur.put("special", null);
 
-        ford = new LinkedHashMap();
+        ford = new LinkedHashMap<Object, Object>();
         ford.put("name", "Ford Prefect");
         ford.put("age", Integer.valueOf(39));
         ford.put("earthling", Boolean.FALSE);
@@ -325,10 +325,10 @@ public class SerializerTest extends TestCase
 
     public void testSerializeFileDataMap()
     {
-        Map f1, f2, m;
+        Map<Object, Object> f1, f2, m;
         String s1, s2;
 
-        f1 = new LinkedHashMap();
+        f1 = new LinkedHashMap<Object, Object>();
         f1.put("uniqueId", "1:769cf9c69a1e278e");
         f1.put("source", Integer.valueOf(1));
         f1.put("id", "769cf9c69a1e278e");
@@ -340,7 +340,7 @@ public class SerializerTest extends TestCase
         f1.put("mimeType", "image/jpeg");
         f1.put("url", "http://127.0.0.1:10414/769cf9c69a1e278e");
 
-        f2 = new LinkedHashMap();
+        f2 = new LinkedHashMap<Object, Object>();
         f2.put("uniqueId", "1:1a1fbcbbd9c3de8d");
         f2.put("source", Integer.valueOf(1));
         f2.put("id", "1a1fbcbbd9c3de8d");
@@ -352,7 +352,7 @@ public class SerializerTest extends TestCase
         f2.put("mimeType", "image/jpeg");
         f2.put("url", "http://127.0.0.1:10414/1a1fbcbbd9c3de8d");
 
-        m = new LinkedHashMap();
+        m = new LinkedHashMap<Object, Object>();
         m.put(Integer.valueOf(0), f1);
         m.put(Integer.valueOf(1), f2);
 
