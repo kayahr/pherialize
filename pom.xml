@@ -17,7 +17,7 @@
   </organization>
   
   <scm>
-    <url>http://scm.ailis.de/viewcvs.cgi/java/pherialize/trunk/?root=svn</url>
+    <url>http://scm.ailis.de/viewvc/java/pherialize/trunk/?root=svn</url>
     <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
     <!-- <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection> -->
   </scm>
