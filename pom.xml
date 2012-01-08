@@ -1,157 +1,103 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                             http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>de.ailis.pherialize</groupId>
   <artifactId>pherialize</artifactId>
   <packaging>jar</packaging>
   <name>Pherialize</name>
-  <version>1.2.0</version>
-  <url>http://www.ailis.de/~k/projects/pherialize/</url>
+  <version>1.2.1-SNAPSHOT</version>
   <description>PHP-compatible serialization for Java</description>
   <inceptionYear>2006</inceptionYear>
+  <url>http://kayahr.github.com/${project.artifactId}/</url>
   <organization>
     <name>Klaus Reimer</name>
     <url>http://www.ailis.de/~k/</url>
   </organization>
   
-  <scm>
-    <url>http://scm.ailis.de/viewvc/java/pherialize/trunk/?root=svn</url>
-    <connection>scm:svn:http://scm.ailis.de/svn/java/pherialize/trunk</connection>
-    <!-- <developerConnection>scm:svn:svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/trunk</developerConnection> -->
-  </scm>
-  
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <!-- <configuration>
-            <tagBase>svn+ssh://k@ailis.de/var/lib/svn/java/pherialize/tags</tagBase>
-          </configuration>-->
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <groupId>org.apache.maven.plugins</groupId>
-        </plugin> 
-      </plugins>
-    </pluginManagement>
-  </build>
-  
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>license.txt</url>
+      <url>LICENSE.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
-  <reporting>
-    <plugins>
-      <!-- <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin> -->      
-      <!-- <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
-      </plugin> -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <links>
-            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
-            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
-            <link>http://www.junit.org/junit/javadoc/</link>
-          </links>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-         <reportSets>
-           <reportSet>
-             <reports>
-               <report>dependencies</report>
-               <report>project-team</report>
-               <!-- <report>mailing-list</report> -->
-               <!-- <report>cim</report> -->
-               <!-- <report>issue-tracking</report> -->
-               <report>license</report>
-               <report>scm</report>
-             </reports>
-           </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <!-- <plugin>
-        <artifactId>maven-clover-plugin</artifactId>
-      </plugin> -->
-      <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-pmd-plugin</artifactId>
-         <configuration>
-            <targetjdk>1.5</targetjdk>
-            <rulesets>
-               <ruleset>/rulesets/basic.xml</ruleset>
-               <!-- <ruleset>/rulesets/controversial.xml</ruleset> -->
-            </rulesets>
-            <format>xml</format>
-            <linkXref>true</linkXref>
-            <sourceEncoding>utf-8</sourceEncoding>
-            <minimumTokens>100</minimumTokens>
-         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changes-maven-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>changes-report</report>
-              <!-- <report>jira-report</report> -->
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
-  
+    
   <developers>
     <developer>
       <id>k</id>
       <name>Klaus Reimer</name>
       <email>k@ailis.de</email>
       <roles>
-        <role>Project Manager</role>
-        <role>Architect</role>
+        <role>Developer</role>
       </roles>
-      <timezone>+2</timezone>
+      <timezone>+1</timezone>
       <url>http://www.ailis.de/~k/</url>
     </developer>        
   </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <releasesUrl>http://nexus.ailis.de/content/repositories/releases/de/ailis/${project.artifactId}/${project.artifactId}/${project.version}</releasesUrl>
+    <snapshotsUrl>http://nexus.ailis.de/content/repositories/snapshots/de/ailis/${project.artifactId}/${project.artifactId}</snapshotsUrl>
+  </properties>
   
+  <scm>
+    <connection>scm:git:git://github.com/kayahr/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kayahr/${project.artifactId}.git</developerConnection>
+    <url>http://github.com/kayahr/${project.artifactId}</url>
+  </scm>
+       
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/kayahr/${project.artifactId}/issues</url>
+  </issueManagement>
+  
+  <build>
+    <plugins>
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      
+    </plugins>
+  </build>  
+  
+  <repositories>
+    <repository>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>http://nexus.ailis.de/content/groups/public/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled></snapshots>
+    </repository>
+    <repository> 
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>http://nexus.ailis.de/content/groups/public-snapshots/</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
   <distributionManagement>
     <repository>
-      <id>kay-repository</id>
-      <name>Kay's Maven repository</name>
-      <url>scpexe://k@ailis.de/home/k/public_html/maven2/</url>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>http://nexus.ailis.de/content/repositories/releases</url>
     </repository>
-    <site>
-      <id>website</id>
-      <url>scpexe://k@ailis.de/home/k/public_html/projects/pherialize</url>
-    </site>
+    <snapshotRepository>
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>http://nexus.ailis.de/content/repositories/snapshots</url>
+    </snapshotRepository>    
   </distributionManagement>
   
   <dependencies>
