@@ -23,10 +23,10 @@
 
 package de.ailis.pherialize;
 
+import de.ailis.pherialize.exceptions.UnserializeException;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import de.ailis.pherialize.exceptions.UnserializeException;
 
 
 /**
@@ -127,8 +127,9 @@ public class Unserializer
 
         pos = this.data.indexOf(':', this.pos + 2);
         length = Integer.parseInt(this.data.substring(this.pos + 2, pos));
+        String result = this.data.substring(pos + 2, pos + 2 + length);
         this.pos = pos + length + 4;
-        return new Mixed(this.data.substring(pos + 2, pos + 2 + length));
+        return new Mixed(result);
     }
     
     
