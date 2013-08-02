@@ -279,7 +279,7 @@ public class Serializer
 
     private void serializeString(final String string, final StringBuffer buffer)
     {
-    String decoded = Unserializer.decode(string, charset);
+        String decoded = Unserializer.decode(string, charset);
 
         buffer.append("s:");
         buffer.append(decoded.length());
