@@ -1,7 +1,7 @@
 /*
  * $Id$
  * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
  * deal in the Software without restriction, including without limitation the
@@ -26,6 +26,7 @@ package de.ailis.pherialize;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -37,13 +38,16 @@ import de.ailis.pherialize.exceptions.SerializeException;
 
 /**
  * Serializes Java objects in a PHP serializer format string.
- * 
+ *
  * @author Klaus Reimer (k.reimer@iplabs.de)
  * @version $Revision$
  */
 
 public class Serializer
 {
+    /** The original charset of the input data. */
+    private final Charset charset;
+
     /** The object history for resolving references */
     private final List<Object> history;
 
@@ -54,14 +58,25 @@ public class Serializer
 
     public Serializer()
     {
+        this(Charset.forName("UTF-8"));
+    }
+
+
+    /**
+     * Constructor
+     */
+
+    public Serializer(Charset charset)
+    {
         super();
+        this.charset = charset;
         this.history = new ArrayList<Object>();
     }
 
 
     /**
      * Serializes the specified object.
-     * 
+     *
      * @param object
      *            The object
      * @return The serialized data
@@ -76,12 +91,12 @@ public class Serializer
         return buffer.toString();
     }
 
-    
+
     /**
      * This method is used internally for recursively scanning the object while
      * serializing. It just calls the other serializeObject method defaulting
      * to allowing references.
-     * 
+     *
      * @param object
      *            The object to serialize
      * @param buffer
@@ -92,14 +107,14 @@ public class Serializer
     {
         serializeObject(object, buffer, true);
     }
-    
-    
+
+
     /**
      * This method is used internally for recursively scanning the object while
      * serializing. If references are allowed or not can be specified with the
-     * last parameter. For example Array/Map-Keys are not allowed to be a 
-     * reference. 
-     * 
+     * last parameter. For example Array/Map-Keys are not allowed to be a
+     * reference.
+     *
      * @param object
      *            The object to serialize
      * @param buffer
@@ -194,7 +209,7 @@ public class Serializer
      * Tries to serialize a reference if the specified object was already
      * serialized. It returns true in this case. If the object was not
      * serialized before then false is returned.
-     * 
+     *
      * @param object
      *            The object to serialize
      * @param buffer
@@ -207,7 +222,7 @@ public class Serializer
         Iterator<?> iterator;
         int index;
         boolean isReference;
-        
+
         // Don't allow references for simple types because here PHP and
         // Java are VERY different and the best way it to simply disallow
         // References for these types
@@ -239,7 +254,7 @@ public class Serializer
     /**
      * Serializes the specified mixed object and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param mixed
      *            The object to serialize
      * @param buffer
@@ -255,7 +270,7 @@ public class Serializer
     /**
      * Serializes the specified string and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param string
      *            The string to serialize
      * @param buffer
@@ -264,8 +279,10 @@ public class Serializer
 
     private void serializeString(final String string, final StringBuffer buffer)
     {
+    String decoded = Unserializer.decode(string, charset);
+
         buffer.append("s:");
-        buffer.append(string.length());
+        buffer.append(decoded.length());
         buffer.append(":\"");
         buffer.append(string);
         buffer.append("\";");
@@ -275,7 +292,7 @@ public class Serializer
     /**
      * Serializes the specified character and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param value
      *            The value to serialize
      * @param buffer
@@ -292,7 +309,7 @@ public class Serializer
 
     /**
      * Adds a serialized NULL to the serialization buffer.
-     * 
+     *
      * @param buffer
      *            The string buffer to append serialized data to
      */
@@ -306,7 +323,7 @@ public class Serializer
     /**
      * Serializes the specified integer number and appends it to the
      * serialization buffer.
-     * 
+     *
      * @param number
      *            The integer number to serialize
      * @param buffer
@@ -324,7 +341,7 @@ public class Serializer
     /**
      * Serializes the specified lonf number and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param number
      *            The lonf number to serialize
      * @param buffer
@@ -349,7 +366,7 @@ public class Serializer
     /**
      * Serializes the specfied double number and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param number
      *            The number to serialize
      * @param buffer
@@ -367,7 +384,7 @@ public class Serializer
     /**
      * Serializes the specfied boolean and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param value
      *            The value to serialize
      * @param buffer
@@ -385,7 +402,7 @@ public class Serializer
     /**
      * Serializes the specfied collection and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param collection
      *            The collection to serialize
      * @param buffer
@@ -417,7 +434,7 @@ public class Serializer
     /**
      * Serializes the specfied array and appends it to the serialization
      * buffer.
-     * 
+     *
      * @param array
      *            The array to serialize
      * @param buffer
@@ -442,10 +459,10 @@ public class Serializer
         buffer.append('}');
     }
 
-    
+
     /**
      * Serializes the specfied map and appends it to the serialization buffer.
-     * 
+     *
      * @param map
      *            The map to serialize
      * @param buffer
@@ -475,7 +492,7 @@ public class Serializer
 
     /**
      * Serializes a serializable object
-     * 
+     *
      * @param object
      *            The serializable object
      * @param buffer

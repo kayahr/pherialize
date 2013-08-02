@@ -270,7 +270,7 @@ public class Unserializer
     }
 
 
-    private static String decode(String encoded, Charset charset) {
+    static String decode(String encoded, Charset charset) {
         try {
             return new String(encoded.getBytes(charset), "ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
@@ -279,7 +279,7 @@ public class Unserializer
     }
 
 
-    private static String encode(String decoded, Charset charset) {
+    static String encode(String decoded, Charset charset) {
         try {
             return new String(decoded.getBytes("ISO-8859-1"), charset);
         } catch (UnsupportedEncodingException e) {
