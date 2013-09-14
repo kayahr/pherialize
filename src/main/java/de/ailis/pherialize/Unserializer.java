@@ -1,7 +1,7 @@
 /*
  * $Id$
  * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
  * deal in the Software without restriction, including without limitation the
@@ -23,6 +23,8 @@
 
 package de.ailis.pherialize;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ import de.ailis.pherialize.exceptions.UnserializeException;
 
 /**
  * Unserializes a PHP serialize format string into a Java object.
- * 
+ *
  * @author Klaus Reimer (k@ailis.de)
  * @version $Revision$
  */
@@ -44,29 +46,46 @@ public class Unserializer
     /** The data to unserialize */
     private final String data;
 
+    /** The original charset of the input data. */
+    private final Charset charset;
+
     /** The object history for resolving references */
     private final List<Object> history;
 
 
     /**
      * Constructor
-     * 
+     *
      * @param data
      *            The data to unserialize
      */
 
     public Unserializer(final String data)
     {
+        this(data, Charset.forName("UTF-8"));
+    }
+
+
+    /**
+     * Constructor
+     *
+     * @param data
+     *            The data to unserialize
+     */
+
+    public Unserializer(final String data, Charset charset)
+    {
         super();
-        this.data = data;
+        this.data = decode(data, charset);
+        this.charset = charset;
         this.pos = 0;
         this.history = new ArrayList<Object>();
     }
 
-    
+
     /**
      * Unserializes the next object in the data stream.
-     * 
+     *
      * @return The unserializes object
      */
 
@@ -100,7 +119,7 @@ public class Unserializer
 
             case 'a':
                 return unserializeArray();
-            
+
             case 'R':
                 result = unserializeReference();
                 break;
@@ -109,7 +128,7 @@ public class Unserializer
                 throw new UnserializeException(
                     "Unable to unserialize unknown type " + type);
         }
-        
+
         this.history.add(result);
         return result;
     }
@@ -117,7 +136,7 @@ public class Unserializer
 
     /**
      * Unserializes the next object in the data stream into a String.
-     * 
+     *
      * @return The unserialized String
      */
 
@@ -128,13 +147,14 @@ public class Unserializer
         pos = this.data.indexOf(':', this.pos + 2);
         length = Integer.parseInt(this.data.substring(this.pos + 2, pos));
         this.pos = pos + length + 4;
-        return new Mixed(this.data.substring(pos + 2, pos + 2 + length));
+        String unencoded = this.data.substring(pos + 2, pos + 2 + length);
+        return new Mixed(encode(unencoded, charset));
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream into an Integer.
-     * 
+     *
      * @return The unserialized Integer
      */
 
@@ -148,11 +168,11 @@ public class Unserializer
         this.pos = pos + 1;
         return new Mixed(result);
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream into an Double.
-     * 
+     *
      * @return The unserialized Double
      */
 
@@ -166,11 +186,11 @@ public class Unserializer
         this.pos = pos + 1;
         return new Mixed(result);
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream as a reference.
-     * 
+     *
      * @return The unserialized reference
      */
 
@@ -184,11 +204,11 @@ public class Unserializer
         this.pos = pos + 1;
         return (Mixed) this.history.get(index - 1);
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream into a Boolean.
-     * 
+     *
      * @return The unserialized Boolean
      */
 
@@ -200,11 +220,11 @@ public class Unserializer
         this.pos += 4;
         return new Mixed(result);
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream into a Null
-     * 
+     *
      * @return The unserialized Null
      */
 
@@ -213,13 +233,13 @@ public class Unserializer
         this.pos += 2;
         return null;
     }
-    
-    
+
+
     /**
      * Unserializes the next object in the data stream into an array. This
      * method returns an ArrayList if the unserialized array has numerical
      * keys starting with 0 or a HashMap otherwise.
-     * 
+     *
      * @return The unserialized array
      */
 
@@ -231,7 +251,7 @@ public class Unserializer
         int max;
         int i;
         Object key, value;
-        
+
         pos = this.data.indexOf(':', this.pos + 2);
         max = Integer.parseInt(this.data.substring(this.pos + 2, pos));
         this.pos = pos + 2;
@@ -247,5 +267,25 @@ public class Unserializer
         }
         this.pos++;
         return result;
+    }
+
+
+    static String decode(String encoded, Charset charset)
+    {
+        try {
+            return new String(encoded.getBytes(charset), "ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            return encoded;
+        }
+    }
+
+
+    static String encode(String decoded, Charset charset)
+    {
+        try {
+            return new String(decoded.getBytes("ISO-8859-1"), charset);
+        } catch (UnsupportedEncodingException e) {
+            return decoded;
+        }
     }
 }
