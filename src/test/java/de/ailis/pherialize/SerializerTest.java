@@ -150,9 +150,9 @@ public class SerializerTest extends TestCase
             .valueOf(2147483647)));
         assertEquals("i:-2147483648;", Pherialize.serialize(Long
             .valueOf(-2147483648)));
-        assertEquals("d:2147483648;", Pherialize.serialize(Long
+        assertEquals("i:2147483648;", Pherialize.serialize(Long
             .valueOf(2147483648L)));
-        assertEquals("d:-2147483649;", Pherialize.serialize(Long
+        assertEquals("i:-2147483649;", Pherialize.serialize(Long
             .valueOf(-2147483649L)));
     }
 
