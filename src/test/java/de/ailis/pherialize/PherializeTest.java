@@ -60,7 +60,7 @@ public class PherializeTest extends TestCase
         String s;
         Mixed data;
 
-        s = "a:2:{i:0;a:10:{s:8:\"uniqueId\";s:18:\"1:769cf9c69a1e278e\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"769cf9c69a1e278e\";s:4:\"name\";s:9:\"44057.JPG\";s:6:\"length\";s:6:\"186118\";s:12:\"lastModified\";s:13:\"1105351935558\";s:5:\"width\";s:3:\"578\";s:6:\"height\";s:3:\"382\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/769cf9c69a1e278e\";}i:1;a:10:{s:8:\"uniqueId\";s:18:\"1:1a1fbcbbd9c3de8d\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"1a1fbcbbd9c3de8d\";s:4:\"name\";s:12:\"testbild.jpg\";s:6:\"length\";s:6:\"229417\";s:12:\"lastModified\";s:13:\"1130771289683\";s:5:\"width\";s:4:\"1600\";s:6:\"height\";s:4:\"1200\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/1a1fbcbbd9c3de8d\";}}";
+        s = "a:2:{i:0;a:10:{s:8:\"uniqueId\";s:18:\"1:769cf9c69a1e278e\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"769cf9c69a1e278e\";s:4:\"name\";s:9:\"44057.JPG\";s:6:\"length\";s:6:\"186118\";s:12:\"lastModified\";i:3147483647;s:5:\"width\";s:3:\"578\";s:6:\"height\";s:3:\"382\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/769cf9c69a1e278e\";}i:1;a:10:{s:8:\"uniqueId\";s:18:\"1:1a1fbcbbd9c3de8d\";s:6:\"source\";i:1;s:2:\"id\";s:16:\"1a1fbcbbd9c3de8d\";s:4:\"name\";s:12:\"testbild.jpg\";s:6:\"length\";s:6:\"229417\";s:12:\"lastModified\";s:13:\"1130771289683\";s:5:\"width\";s:4:\"1600\";s:6:\"height\";s:4:\"1200\";s:8:\"mimeType\";s:10:\"image/jpeg\";s:3:\"url\";s:39:\"http://127.0.0.1:10414/1a1fbcbbd9c3de8d\";}}";
         data = Pherialize.unserialize(s);
         assertEquals(s, Pherialize.serialize(data));
     }
