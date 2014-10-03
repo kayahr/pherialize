@@ -162,16 +162,17 @@ public class Unserializer
     {
         Integer result;
         Long longResult;
-        int pos;
+        int startPos, endPos;
 
-        pos = this.data.indexOf(';', this.pos + 2);
+        startPos = this.pos + 2;
+        endPos = this.data.indexOf(';', startPos);
         try {
-            result = Integer.valueOf(this.data.substring(this.pos + 2, pos));
-            this.pos = pos + 1;
+            result = Integer.valueOf(this.data.substring(startPos, endPos));
+            this.pos = endPos + 1;
             return new Mixed(result);
         } catch (NumberFormatException numberException) {
-            longResult = Long.valueOf(this.data.substring(this.pos + 2, pos));
-            this.pos = pos + 1;
+            longResult = Long.valueOf(this.data.substring(startPos, endPos));
+            this.pos = endPos + 1;
             return new Mixed(longResult);
         }
     }
