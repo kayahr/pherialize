@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.ailis.pherialize.exceptions.SerializeException;
 
@@ -89,6 +90,32 @@ public class Serializer
         buffer = new StringBuffer();
         serializeObject(object, buffer);
         return buffer.toString();
+    }
+    
+    /**
+     * Serializes the php session.
+     *
+     * @param object
+     *            The object
+     * @return The serialized data
+     */
+
+    public String serializeSession(final MixedArray array)
+    {
+    	StringBuffer result = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
+        Iterator<Entry<Object, Object>> items = array.entrySet().iterator();
+		while(items.hasNext())
+		{
+			Entry thisEntry = (Entry) items.next();
+			String key = thisEntry.getKey().toString();
+			
+			buffer.setLength(0);
+			serializeObject(thisEntry.getValue(), buffer);
+			result.append(key + "|" + buffer.toString());
+		}
+        
+        return result.toString();
     }
 
 

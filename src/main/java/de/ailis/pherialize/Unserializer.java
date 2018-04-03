@@ -82,6 +82,30 @@ public class Unserializer
         this.history = new ArrayList<Object>();
     }
 
+    /**
+     * Unserializes the session in the data stream.
+     *
+     * @return The unserialized session
+     */
+
+    public Mixed unserializeSession()
+    {
+        MixedArray array;
+        Mixed result;
+        int sep;
+
+        array = new MixedArray();
+        result = new Mixed(array);
+        while ((sep = this.data.indexOf('|', this.pos)) > -1)
+        {
+            String unencoded = this.data.substring(pos, sep);
+            Mixed key = new Mixed(encode(unencoded, charset));
+            this.pos = sep + 1;
+            Mixed value = unserializeObject();
+            array.put(key, value);
+        }
+        return result;
+    }
 
     /**
      * Unserializes the next object in the data stream.

@@ -416,4 +416,23 @@ public class SerializerTest extends TestCase
         s2 = Pherialize.serialize(array);
         assertEquals(s1, s2);
     }
+    
+    /**
+     * Test serializing array
+     */
+
+    public void testSerializePhpSession()
+    {
+        MixedArray array;
+        String s1, s2;
+
+        array = new MixedArray();
+        array.put("flash_time", null);
+        array.put("created", 1522666956);
+        array.put("email", "email@gmail.com");
+
+        s1 = "flash_time|N;created|i:1522666956;email|s:15:\"email@gmail.com\";";
+        s2 = Pherialize.serializeSession(array);
+        assertEquals(s1, s2);
+    }
 }
