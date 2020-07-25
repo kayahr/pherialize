@@ -1,3 +1,11 @@
+DEPRECATION NOTICE
+==================
+
+This project is no longer maintained since years as I'm no longer active in 
+Java and PHP development. Feel free to take over the project if you think the 
+world still needs this.
+
+
 Pherialize
 ==========
 
