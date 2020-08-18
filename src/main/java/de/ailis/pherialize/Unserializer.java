@@ -161,12 +161,20 @@ public class Unserializer
     private Mixed unserializeInteger()
     {
         Integer result;
-        int pos;
+        Long longResult;
+        int startPos, endPos;
 
-        pos = this.data.indexOf(';', this.pos + 2);
-        result = Integer.valueOf(this.data.substring(this.pos + 2, pos));
-        this.pos = pos + 1;
-        return new Mixed(result);
+        startPos = this.pos + 2;
+        endPos = this.data.indexOf(';', startPos);
+        try {
+            result = Integer.valueOf(this.data.substring(startPos, endPos));
+            this.pos = endPos + 1;
+            return new Mixed(result);
+        } catch (NumberFormatException numberException) {
+            longResult = Long.valueOf(this.data.substring(startPos, endPos));
+            this.pos = endPos + 1;
+            return new Mixed(longResult);
+        }
     }
 
 

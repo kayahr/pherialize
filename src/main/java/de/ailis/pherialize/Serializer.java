@@ -350,14 +350,7 @@ public class Serializer
 
     private void serializeLong(final long number, final StringBuffer buffer)
     {
-        if ((number >= Integer.MIN_VALUE) && (number <= Integer.MAX_VALUE))
-        {
-            buffer.append("i:");
-        }
-        else
-        {
-            buffer.append("d:");
-        }
+        buffer.append("i:");
         buffer.append(number);
         buffer.append(';');
     }
