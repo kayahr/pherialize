@@ -87,7 +87,7 @@ public class Pherialize
      * Returns the unserialized object of the specified PHP serialize format
      * string. The returned object is wrapped in a Mixed object allowing easy
      * conversion to any data type needed. This wrapping is needed because PHP
-     * is a loosely typed language and it is quite propable that a boolean is
+     * is a loosely typed language and it is quite probable that a boolean is
      * sometimes a int or a string. So with the Mixed wrapper object you can
      * easily decide on your own how to interpret the unserialized data.
      *
@@ -111,7 +111,7 @@ public class Pherialize
      * Returns the unserialized object of the specified PHP serialize format
      * string. The returned object is wrapped in a Mixed object allowing easy
      * conversion to any data type needed. This wrapping is needed because PHP
-     * is a loosely typed language and it is quite propable that a boolean is
+     * is a loosely typed language and it is quite probable that a boolean is
      * sometimes a int or a string. So with the Mixed wrapper object you can
      * easily decide on your own how to interpret the unserialized data.
      *
@@ -127,4 +127,49 @@ public class Pherialize
         unserializer = new Unserializer(data);
         return unserializer.unserializeObject();
     }
+
+    /**
+     * Returns the unserialized object of the specified PHP serialized session.
+     * The returned object is wrapped in a Mixed object allowing easy conversion
+     * to any data type needed. This wrapping is needed because PHP is a loosely
+     * typed language and it is quite probable that a boolean is sometimes a
+     * int or a string. So with the Mixed wrapper object you can easily decide
+     * on your own how to interpret the unserialized data.
+     *
+     * @param data
+     *            The serialized session
+     * @return The unserialized object
+     */
+
+    public static Mixed unserializeSession(final String data)
+    {
+        Unserializer unserializer;
+
+        unserializer = new Unserializer(data);
+        return unserializer.unserializeSession();
+    }
+
+    /**
+     * Returns the unserialized object of the specified PHP serialized session.
+     * The returned object is wrapped in a Mixed object allowing easy conversion
+     * to any data type needed. This wrapping is needed because PHP is a loosely
+     * typed language and it is quite probable that a boolean is sometimes a
+     * int or a string. So with the Mixed wrapper object you can easily decide
+     * on your own how to interpret the unserialized data.
+     *
+     * @param data
+     *            The serialized session
+     * @param charset
+     *            The charset of data.
+     * @return The unserialized object
+     */
+
+    public static Mixed unserializeSession(final String data, Charset charset)
+    {
+        Unserializer unserializer;
+
+        unserializer = new Unserializer(data, charset);
+        return unserializer.unserializeSession();
+    }
+
 }

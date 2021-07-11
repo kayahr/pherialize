@@ -143,6 +143,22 @@ public class UnserializerTest extends TestCase
         assertEquals(new Mixed(Boolean.TRUE), test.get("key2"));
     }
 
+    /**
+     * Tests unserializing a session
+     */
+
+    public void testUnserializeSession()
+    {
+        MixedArray test;
+
+        test = Pherialize.unserializeSession(
+                "login_ok|b:1;nome|s:4:\"sica\";inteiro|i:34;").toArray();
+        assertEquals(3, test.size());
+        assertEquals(new Mixed(Boolean.TRUE), test.get("login_ok"));
+        assertEquals(new Mixed("sica"), test.get("nome"));
+        assertEquals(new Mixed(Integer.valueOf(34)), test.get("inteiro"));
+    }
+
 
     /**
      * Tests unserializing a List
